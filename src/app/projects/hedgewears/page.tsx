@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState, type TouchEvent } from "react";
+import { useEffect, useState, type TouchEvent } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Footer } from "@/components/layout/footer";
@@ -32,9 +32,9 @@ const focusAreas = [
 const tools = ["Figma", "Google Docs", "ChatGpt", "Google Meet", "Google Sheets"];
 
 const productDiscoveryImages = [
-  "/projects/web-projects/hedgewears-fashion-ecommerce/product-discovery-01.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/product-discovery-02.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/product-discovery-03.png",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/product-discovery-01-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/product-discovery-02-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/product-discovery-03-delivery.webp",
 ];
 
 const productDiscoveryDocumentation = [
@@ -64,9 +64,9 @@ const productDiscoveryDocumentation = [
 
 
 const mobileProductDiscoveryImages = [
-  "/projects/web-projects/hedgewears-fashion-ecommerce/mobile-product-discovery-01.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/mobile-product-discovery-02.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/mobile-product-discovery-03.png",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/mobile-product-discovery-01-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/mobile-product-discovery-02-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/mobile-product-discovery-03-delivery.webp",
 ];
 
 const mobileProductDiscoveryDocumentation = [
@@ -106,10 +106,10 @@ const mobileProductDiscoveryDocumentation = [
 
 
 const purchaseJourneyImages = [
-  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-01.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-02.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-03.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-04.png",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-01-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-02-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-03-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/purchase-journey-04-delivery.webp",
 ];
 
 const purchaseJourneyDocumentation = [
@@ -150,9 +150,9 @@ const purchaseJourneyDocumentation = [
 ];
 
 const accountManagementImages = [
-  "/projects/web-projects/hedgewears-fashion-ecommerce/account-management-01.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/account-management-02.png",
-  "/projects/web-projects/hedgewears-fashion-ecommerce/account-management-03.png",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/account-management-01-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/account-management-02-delivery.webp",
+  "/projects/web-projects/hedgewears-fashion-ecommerce/account-management-03-delivery.webp",
 ];
 
 const accountManagementDocumentation = [
@@ -210,6 +210,24 @@ function BulletColumn({ title, items }: { title: string; items: string[] }) {
   );
 }
 
+function preloadBrowserImage(src: string) {
+  if (typeof window === "undefined") return;
+  const image = new window.Image();
+  image.decoding = "async";
+  image.src = src;
+}
+
+function preloadAdjacentImages(images: string[], index: number) {
+  if (images.length <= 1) return;
+
+  const previousIndex = index === 0 ? images.length - 1 : index - 1;
+  const nextIndex = index === images.length - 1 ? 0 : index + 1;
+
+  preloadBrowserImage(images[previousIndex]);
+  if (nextIndex !== previousIndex) {
+    preloadBrowserImage(images[nextIndex]);
+  }
+}
 export default function HedgewearsProjectPage() {
   const [activeProductDiscoveryImage, setActiveProductDiscoveryImage] = useState(0);
   const [activeMobileProductDiscoveryImage, setActiveMobileProductDiscoveryImage] = useState(0);
@@ -222,6 +240,26 @@ export default function HedgewearsProjectPage() {
     "Expanded Hedgewears product discovery and shopping screen",
   );
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  useEffect(() => {
+    preloadAdjacentImages(productDiscoveryImages, activeProductDiscoveryImage);
+  }, [activeProductDiscoveryImage]);
+
+  useEffect(() => {
+    preloadAdjacentImages(mobileProductDiscoveryImages, activeMobileProductDiscoveryImage);
+  }, [activeMobileProductDiscoveryImage]);
+
+  useEffect(() => {
+    preloadAdjacentImages(purchaseJourneyImages, activePurchaseJourneyImage);
+  }, [activePurchaseJourneyImage]);
+
+  useEffect(() => {
+    preloadAdjacentImages(accountManagementImages, activeAccountManagementImage);
+  }, [activeAccountManagementImage]);
+
+  useEffect(() => {
+    if (!viewerOpen) return;
+    preloadAdjacentImages(viewerImages, viewerImageIndex);
+  }, [viewerOpen, viewerImages, viewerImageIndex]);
 
   const showPreviousProductDiscoveryImage = () => {
     setActiveProductDiscoveryImage((current) =>
@@ -379,7 +417,7 @@ export default function HedgewearsProjectPage() {
     <main className="min-h-screen bg-[#121212] text-[#F5F5F5]">
       <Header />
 
-      <section className="mx-auto w-full max-w-[1440px] px-5 pb-[96px] pt-[120px] lg:px-[80px] lg:pt-[128px]">
+      <section className="mx-auto w-full max-w-[1440px] px-5 pb-[96px] pt-[32px] lg:px-[80px] lg:pt-[48px]">
         <div className="mx-auto w-full max-w-[1280px]">
           <div>
             <h1 className="font-inter text-[18px] font-medium leading-none text-[#F5F5F5] lg:text-[24px]">
@@ -392,7 +430,7 @@ export default function HedgewearsProjectPage() {
 
           <div className="mt-[32px] w-full overflow-hidden">
             <Image
-              src="/projects/web-projects/hedgewears-fashion-ecommerce/hero.png"
+              src="/projects/web-projects/hedgewears-fashion-ecommerce/hedgewears-hero-delivery.webp"
               alt="Hedgewears product optimization and UI overhaul preview"
               width={1280}
               height={866}
@@ -487,6 +525,7 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Product Discovery and Shopping image viewer"
               >
                 <Image
+                  key={productDiscoveryImages[activeProductDiscoveryImage]}
                   src={productDiscoveryImages[activeProductDiscoveryImage]}
                   alt="Hedgewears product discovery and shopping experience"
                   width={1230}
@@ -593,7 +632,7 @@ export default function HedgewearsProjectPage() {
               </h2>
               <p className="mt-[13px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <span className="font-semibold text-[#F5F5F5]">
-                  • Let users shop before asking them to sign in.
+                  â€¢ Let users shop before asking them to sign in.
                 </span>{" "}
                 Guest users can browse, save products and build their cart first, with
                 authentication introduced when an account is required.
@@ -629,6 +668,7 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Simplifying Mobile Product Discovery image viewer"
               >
                 <Image
+                  key={mobileProductDiscoveryImages[activeMobileProductDiscoveryImage]}
                   src={mobileProductDiscoveryImages[activeMobileProductDiscoveryImage]}
                   alt="Hedgewears simplifying mobile product discovery experience"
                   width={1230}
@@ -739,7 +779,7 @@ export default function HedgewearsProjectPage() {
               <div className="mt-[13px] space-y-[10px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <p>
                   <span className="font-semibold text-[#F5F5F5]">
-                    • Prioritize products over navigation.
+                    â€¢ Prioritize products over navigation.
                   </span>{" "}
                   I reduced the space occupied by category controls so more of the actual catalogue
                   could appear within the initial viewport.
@@ -747,7 +787,7 @@ export default function HedgewearsProjectPage() {
 
                 <p>
                   <span className="font-semibold text-[#F5F5F5]">
-                    • Keep category browsing in context.
+                    â€¢ Keep category browsing in context.
                   </span>{" "}
                   Instead of creating several layers of category screens, I used a clearer category
                   and subcategory structure that lets users refine what they want while continuing to
@@ -756,7 +796,7 @@ export default function HedgewearsProjectPage() {
 
                 <p>
                   <span className="font-semibold text-[#F5F5F5]">
-                    • Carry video discovery across platforms.
+                    â€¢ Carry video discovery across platforms.
                   </span>{" "}
                   Explore and Watch &amp; Shop were brought into mobile navigation so HedgeWears&apos;
                   video-shopping model wasn&apos;t limited to one part of the product.
@@ -794,6 +834,7 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Simplifying the Purchase Journey image viewer"
               >
                 <Image
+                  key={purchaseJourneyImages[activePurchaseJourneyImage]}
                   src={purchaseJourneyImages[activePurchaseJourneyImage]}
                   alt="Hedgewears purchase journey experience"
                   width={1600}
@@ -885,7 +926,7 @@ export default function HedgewearsProjectPage() {
               </h2>
               <p className="mt-[13px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <span className="font-semibold text-[#F5F5F5]">
-                  • Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
+                  â€¢ Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
                 </span>
               </p>
             </div>
@@ -920,6 +961,7 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Better Account Management image viewer"
               >
                 <Image
+                  key={accountManagementImages[activeAccountManagementImage]}
                   src={accountManagementImages[activeAccountManagementImage]}
                   alt="Hedgewears account management experience"
                   width={1600}
@@ -1011,7 +1053,7 @@ export default function HedgewearsProjectPage() {
               </h2>
               <p className="mt-[13px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <span className="font-semibold text-[#F5F5F5]">
-                  • Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
+                  â€¢ Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
                 </span>
               </p>
             </div>
@@ -1089,6 +1131,7 @@ export default function HedgewearsProjectPage() {
               </span>
 
               <Image
+                key={viewerImages[viewerImageIndex]}
                 src={viewerImages[viewerImageIndex]}
                 alt={viewerAlt}
                 width={1230}

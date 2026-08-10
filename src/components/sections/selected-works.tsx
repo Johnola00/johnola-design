@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -147,7 +147,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A fashion e-commerce platform for discovering, video shopping, and managing modern style online.",
       imagePath:
-        "/projects/web-projects/hedgewears-fashion-ecommerce/Hedgewears%20thumbnail.png",
+        "/projects/web-projects/hedgewears-fashion-ecommerce/Hedgewears-thumbnail-delivery.webp",
       imageFit: "contain",
       href: "/projects/hedgewears",
     },
@@ -158,7 +158,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A travel platform for discovering curated trips, booking complete packages, and listing local experiences across Nigeria.",
       imagePath:
-        "/projects/web-projects/travel-ng/TravelNg%20Thumbnail.png",
+        "/projects/web-projects/travel-ng/TravelNg-Thumbnail-delivery.webp",
       imageFit: "contain",
       href: "/projects/travelng",
     },
@@ -700,6 +700,7 @@ export function SelectedWorks() {
   if (viewportMode === "tablet") return <TabletWorkSection />;
   return <DesktopSelectedWorks />;
 }
+
 
 
 

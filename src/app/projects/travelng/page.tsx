@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState, type TouchEvent } from "react";
+import { useEffect, useState, type TouchEvent } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Footer } from "@/components/layout/footer";
@@ -29,16 +29,16 @@ const focusAreas = [
 
 const tools = ["Figma", "FigJam", "ChatGpt", "Google Meet", "Slack"];
 const coreExperienceImages = [
-  "/projects/web-projects/travel-ng/core-experience-01.png?v=20260806",
-  "/projects/web-projects/travel-ng/core-experience-02.png?v=20260806",
+  "/projects/web-projects/travel-ng/core-experience-01-delivery.webp",
+  "/projects/web-projects/travel-ng/core-experience-02-delivery.webp",
 ];
 
 const coreExperienceTwoImages = [
-  "/projects/web-projects/travel-ng/core-experience-03.png?v=20260806",
+  "/projects/web-projects/travel-ng/core-experience-03-delivery.webp",
 ];
 
 const coreExperienceThreeImages = [
-  "/projects/web-projects/travel-ng/core-experience-04.png?v=20260806",
+  "/projects/web-projects/travel-ng/core-experience-04-delivery.webp",
 ];
 
 const coreExperienceDecisions = [
@@ -89,7 +89,7 @@ function ExpandableCoreCopy({
             transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
           }}
         >
-          ↓
+          â†“
         </span>
       </button>
     </div>
@@ -126,6 +126,24 @@ function BulletColumn({ title, items }: { title: string; items: string[] }) {
   );
 }
 
+function preloadBrowserImage(src: string) {
+  if (typeof window === "undefined") return;
+  const image = new window.Image();
+  image.decoding = "async";
+  image.src = src;
+}
+
+function preloadAdjacentImages(images: string[], index: number) {
+  if (images.length <= 1) return;
+
+  const previousIndex = index === 0 ? images.length - 1 : index - 1;
+  const nextIndex = index === images.length - 1 ? 0 : index + 1;
+
+  preloadBrowserImage(images[previousIndex]);
+  if (nextIndex !== previousIndex) {
+    preloadBrowserImage(images[nextIndex]);
+  }
+}
 export default function TravelNgProjectPage() {
   const [activeCoreImage, setActiveCoreImage] = useState(0);
   const [viewerOpen, setViewerOpen] = useState(false);
@@ -133,6 +151,14 @@ export default function TravelNgProjectPage() {
   const [viewerImageIndex, setViewerImageIndex] = useState(0);
   const [viewerExpanded, setViewerExpanded] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  useEffect(() => {
+    preloadAdjacentImages(coreExperienceImages, activeCoreImage);
+  }, [activeCoreImage]);
+
+  useEffect(() => {
+    if (!viewerOpen) return;
+    preloadAdjacentImages(viewerImages, viewerImageIndex);
+  }, [viewerOpen, viewerImages, viewerImageIndex]);
 
   const showPreviousCoreImage = () => {
     setActiveCoreImage((current) =>
@@ -228,7 +254,7 @@ export default function TravelNgProjectPage() {
 
             <div className="mt-[32px] w-full overflow-hidden bg-[#E6F7FF]">
               <Image
-                src="/projects/web-projects/travel-ng/hero.png?v=20260806"
+                src="/projects/web-projects/travel-ng/travelng-hero-delivery.webp"
                 alt="Travel.ng marketplace interface presentation"
                 width={1280}
                 height={868}
@@ -331,7 +357,7 @@ export default function TravelNgProjectPage() {
 
               <div className="mt-[32px] w-full overflow-hidden">
                 <Image
-                  src="/projects/web-projects/travel-ng/information-architecture.png?v=20260806"
+                  src="/projects/web-projects/travel-ng/information-architecture-delivery.webp"
                   alt="Travel.ng information architecture showing traveler and agency experiences"
                   width={1280}
                   height={721}
@@ -353,6 +379,7 @@ export default function TravelNgProjectPage() {
                   aria-label="Open Core Experience 01 image viewer"
                 >
                   <Image
+                    key={coreExperienceImages[activeCoreImage]}
                     src={coreExperienceImages[activeCoreImage]}
                     alt="Travel.ng core experience screens for discovering and booking travel packages"
                     width={1230}
@@ -685,6 +712,7 @@ export default function TravelNgProjectPage() {
 
               <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
                 <Image
+                  key={viewerImages[viewerImageIndex]}
                   src={viewerImages[viewerImageIndex]}
                   alt="Expanded Travel.ng core experience screen"
                   width={1230}
@@ -719,6 +747,7 @@ export default function TravelNgProjectPage() {
     </>
   );
 }
+
 
 
 

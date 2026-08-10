@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -88,14 +88,14 @@ export function ProjectCard({
   return (
     // FIX 1: `isolate` creates a self-contained stacking context so this card's
     // internal z-indexes (z-0, z-10, z-50) never compete with elements outside
-    // the card â€” like your tab labels. Without this, the child `z-10` image
+    // the card Ã¢â‚¬â€ like your tab labels. Without this, the child `z-10` image
     // container silently promoted the whole card into a page-level stacking
     // context that physically overlapped adjacent elements.
     <div className="isolate flex w-[406px] max-w-full flex-col relative">
 
       {/* FIX 2: Dropped from z-10 to z-0. Inside an `isolate` boundary, z-0
           is the correct base layer. z-10 here was the original source of the
-          bleed â€” it was winning against un-indexed siblings on the page. */}
+          bleed Ã¢â‚¬â€ it was winning against un-indexed siblings on the page. */}
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -126,6 +126,7 @@ export function ProjectCard({
           fill
           sizes="406px"
           quality={75}
+          unoptimized={imagePath.endsWith(".webp")}
           className={imageClassName}
         />
 
@@ -198,6 +199,7 @@ export function ProjectCard({
     </div>
   );
 }
+
 
 
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type TouchEvent } from "react";
+import { useState, type TouchEvent } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Footer } from "@/components/layout/footer";
@@ -223,38 +223,6 @@ export default function HedgewearsProjectPage() {
   );
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      [
-        productDiscoveryImages[(activeProductDiscoveryImage + 1) % productDiscoveryImages.length],
-        mobileProductDiscoveryImages[(activeMobileProductDiscoveryImage + 1) % mobileProductDiscoveryImages.length],
-        purchaseJourneyImages[(activePurchaseJourneyImage + 1) % purchaseJourneyImages.length],
-        accountManagementImages[(activeAccountManagementImage + 1) % accountManagementImages.length],
-      ].forEach((src) => {
-        const image = new window.Image();
-        image.decoding = "async";
-        image.src = src;
-      });
-    }, 650);
-
-    return () => window.clearTimeout(timer);
-  }, [
-    activeProductDiscoveryImage,
-    activeMobileProductDiscoveryImage,
-    activePurchaseJourneyImage,
-    activeAccountManagementImage,
-  ]);
-
-  useEffect(() => {
-    if (!viewerOpen) return;
-
-    viewerImages.forEach((src) => {
-      const image = new window.Image();
-      image.decoding = "async";
-      image.src = src;
-    });
-  }, [viewerOpen, viewerImages]);
-
   const showPreviousProductDiscoveryImage = () => {
     setActiveProductDiscoveryImage((current) =>
       current === 0 ? productDiscoveryImages.length - 1 : current - 1,
@@ -424,11 +392,12 @@ export default function HedgewearsProjectPage() {
 
           <div className="mt-[32px] w-full overflow-hidden">
             <Image
-              src="/projects/web-projects/hedgewears-fashion-ecommerce/Hero.webp"
+              src="/projects/web-projects/hedgewears-fashion-ecommerce/hero.png"
               alt="Hedgewears product optimization and UI overhaul preview"
               width={1280}
               height={866}
               priority
+              quality={100}
               unoptimized
               sizes="(max-width: 1024px) calc(100vw - 40px), 1280px"
               className="h-auto w-full object-contain"
@@ -518,7 +487,6 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Product Discovery and Shopping image viewer"
               >
                 <Image
-                  key={productDiscoveryImages[activeProductDiscoveryImage]}
                   src={productDiscoveryImages[activeProductDiscoveryImage]}
                   alt="Hedgewears product discovery and shopping experience"
                   width={1230}
@@ -661,7 +629,6 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Simplifying Mobile Product Discovery image viewer"
               >
                 <Image
-                  key={mobileProductDiscoveryImages[activeMobileProductDiscoveryImage]}
                   src={mobileProductDiscoveryImages[activeMobileProductDiscoveryImage]}
                   alt="Hedgewears simplifying mobile product discovery experience"
                   width={1230}
@@ -827,7 +794,6 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Simplifying the Purchase Journey image viewer"
               >
                 <Image
-                  key={purchaseJourneyImages[activePurchaseJourneyImage]}
                   src={purchaseJourneyImages[activePurchaseJourneyImage]}
                   alt="Hedgewears purchase journey experience"
                   width={1600}
@@ -954,7 +920,6 @@ export default function HedgewearsProjectPage() {
                 aria-label="Open Better Account Management image viewer"
               >
                 <Image
-                  key={accountManagementImages[activeAccountManagementImage]}
                   src={accountManagementImages[activeAccountManagementImage]}
                   alt="Hedgewears account management experience"
                   width={1600}
@@ -1124,12 +1089,11 @@ export default function HedgewearsProjectPage() {
               </span>
 
               <Image
-                key={viewerImages[viewerImageIndex]}
                 src={viewerImages[viewerImageIndex]}
                 alt={viewerAlt}
                 width={1230}
                 height={712}
-                loading="eager"
+                quality={100}
                 unoptimized
                 sizes="100vw"
                 className="max-h-[92vh] w-auto max-w-[94vw] rounded-[12px] object-contain"

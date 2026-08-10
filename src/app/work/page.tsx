@@ -148,7 +148,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A fashion e-commerce platform for discovering, video shopping, and managing modern style online.",
       imagePath:
-        "/projects/web-projects/hedgewears-fashion-ecommerce/Hedgewears-thumbnail.webp",
+        "/projects/web-projects/hedgewears-fashion-ecommerce/Hedgewears%20thumbnail.png",
       imageFit: "contain",
       href: "/projects/hedgewears",
     },
@@ -159,7 +159,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A travel platform for discovering curated trips, booking complete packages, and listing local experiences across Nigeria.",
       imagePath:
-        "/projects/web-projects/travel-ng/TravelNg-Thumbnail.webp",
+        "/projects/web-projects/travel-ng/TravelNg%20Thumbnail.png",
       imageFit: "contain",
       href: "/projects/travelng",
     },
@@ -473,8 +473,7 @@ function MobileProjectCard({ project }: { project: Project }) {
           alt={`${project.title} project preview`}
           fill
           sizes="353px"
-          loading="eager"
-          unoptimized
+          quality={75}
           className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
         />
         <span
@@ -869,8 +868,7 @@ function TabletProjectCard({ project }: { project: Project }) {
           src={project.imagePath}
           alt={`${project.title} project preview`}
           fill
-          loading="eager"
-          unoptimized
+          quality={75}
           sizes="(max-width: 1024px) 43vw, 406px"
           className={`transition-transform duration-500 ease-out group-hover:scale-[1.025] ${
             project.imageFit === "contain" ? "object-contain" : "object-cover"

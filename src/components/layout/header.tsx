@@ -134,8 +134,13 @@ export function Header({ activePath }: HeaderProps) {
 
   useEffect(() => {
     if (!isMenuMounted) return;
-    closeMenu();
-  }, [pathname]);
+
+    const frame = requestAnimationFrame(() => {
+      closeMenu();
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [pathname, isMenuMounted, closeMenu]);
 
   const updatePill = useCallback((targetPath: string) => {
     const nav = navRef.current;

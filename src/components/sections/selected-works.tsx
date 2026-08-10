@@ -255,14 +255,22 @@ function ProjectGrid({
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (isLoading) {
-      setIsVisible(false);
-      return;
-    }
+    let revealFrame = 0;
 
-    setIsVisible(false);
-    const frame = requestAnimationFrame(() => setIsVisible(true));
-    return () => cancelAnimationFrame(frame);
+    const resetFrame = requestAnimationFrame(() => {
+      setIsVisible(false);
+
+      if (!isLoading) {
+        revealFrame = requestAnimationFrame(() => {
+          setIsVisible(true);
+        });
+      }
+    });
+
+    return () => {
+      cancelAnimationFrame(resetFrame);
+      if (revealFrame) cancelAnimationFrame(revealFrame);
+    };
   }, [isLoading, transitionKey]);
 
   const gridClassName =

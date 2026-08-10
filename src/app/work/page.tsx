@@ -260,18 +260,22 @@ function ProjectGrid({
   const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
-    if (isLoading) {
+    let revealFrame = 0;
+
+    const resetFrame = requestAnimationFrame(() => {
       setIsRevealed(false);
-      return;
-    }
 
-    setIsRevealed(false);
-
-    const frame = requestAnimationFrame(() => {
-      setIsRevealed(true);
+      if (!isLoading) {
+        revealFrame = requestAnimationFrame(() => {
+          setIsRevealed(true);
+        });
+      }
     });
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(resetFrame);
+      if (revealFrame) cancelAnimationFrame(revealFrame);
+    };
   }, [isLoading, transitionKey]);
 
   const gridClassName =
@@ -1138,12 +1142,20 @@ function WorkPageContent() {
   useEffect(() => {
     if (!selectedMobileTab) return;
 
-    setActiveTab(selectedMobileTab);
-    setHasManualDesktopSelection(false);
+    const frame = requestAnimationFrame(() => {
+      setActiveTab(selectedMobileTab);
+      setHasManualDesktopSelection(false);
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [selectedMobileTab]);
 
   useEffect(() => {
-    setCurrentPage(1);
+    const frame = requestAnimationFrame(() => {
+      setCurrentPage(1);
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [visibleDesktopTab]);
 
   useEffect(() => {

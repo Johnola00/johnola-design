@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter, PT_Sans_Caption } from "next/font/google";
 import "./globals.css";
 
@@ -72,7 +73,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${ptSansCaption.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

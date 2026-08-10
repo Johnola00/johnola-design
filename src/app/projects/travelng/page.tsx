@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type TouchEvent } from "react";
+import { useEffect, useState, type TouchEvent } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Footer } from "@/components/layout/footer";
@@ -29,16 +29,16 @@ const focusAreas = [
 
 const tools = ["Figma", "FigJam", "ChatGpt", "Google Meet", "Slack"];
 const coreExperienceImages = [
-  "/projects/web-projects/travel-ng/core-experience-01.png?v=20260806",
-  "/projects/web-projects/travel-ng/core-experience-02.png?v=20260806",
+  "/projects/web-projects/travel-ng/core-experience-01.webp",
+  "/projects/web-projects/travel-ng/core-experience-02.webp",
 ];
 
 const coreExperienceTwoImages = [
-  "/projects/web-projects/travel-ng/core-experience-03.png?v=20260806",
+  "/projects/web-projects/travel-ng/core-experience-03.webp",
 ];
 
 const coreExperienceThreeImages = [
-  "/projects/web-projects/travel-ng/core-experience-04.png?v=20260806",
+  "/projects/web-projects/travel-ng/core-experience-04.webp",
 ];
 
 const coreExperienceDecisions = [
@@ -134,6 +134,23 @@ export default function TravelNgProjectPage() {
   const [viewerExpanded, setViewerExpanded] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      [
+        ...coreExperienceImages,
+        ...coreExperienceTwoImages,
+        ...coreExperienceThreeImages,
+        "/projects/web-projects/travel-ng/information-architecture.webp",
+      ].forEach((src) => {
+        const image = new window.Image();
+        image.decoding = "async";
+        image.src = src;
+      });
+    }, 500);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
   const showPreviousCoreImage = () => {
     setActiveCoreImage((current) =>
       current === 0 ? coreExperienceImages.length - 1 : current - 1,
@@ -228,7 +245,7 @@ export default function TravelNgProjectPage() {
 
             <div className="mt-[32px] w-full overflow-hidden bg-[#E6F7FF]">
               <Image
-                src="/projects/web-projects/travel-ng/hero.png?v=20260806"
+                src="/projects/web-projects/travel-ng/hero.webp"
                 alt="Travel.ng marketplace interface presentation"
                 width={1280}
                 height={868}
@@ -331,11 +348,10 @@ export default function TravelNgProjectPage() {
 
               <div className="mt-[32px] w-full overflow-hidden">
                 <Image
-                  src="/projects/web-projects/travel-ng/information-architecture.png?v=20260806"
+                  src="/projects/web-projects/travel-ng/information-architecture.webp"
                   alt="Travel.ng information architecture showing traveler and agency experiences"
                   width={1280}
                   height={721}
-                  quality={100}
                   unoptimized
                   sizes="(max-width: 767px) calc(100vw - 40px), 1280px"
                   className="h-auto w-full object-contain"
@@ -353,11 +369,11 @@ export default function TravelNgProjectPage() {
                   aria-label="Open Core Experience 01 image viewer"
                 >
                   <Image
+                    key={coreExperienceImages[activeCoreImage]}
                     src={coreExperienceImages[activeCoreImage]}
                     alt="Travel.ng core experience screens for discovering and booking travel packages"
                     width={1230}
                     height={712}
-                    quality={100}
                     unoptimized
                     sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
                     className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
@@ -438,7 +454,6 @@ export default function TravelNgProjectPage() {
                     alt="Travel.ng package creation workflow screens"
                     width={1230}
                     height={712}
-                    quality={100}
                     unoptimized
                     sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
                     className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
@@ -473,7 +488,6 @@ export default function TravelNgProjectPage() {
                     alt="Travel.ng messaging and organizer contact experience"
                     width={1230}
                     height={712}
-                    quality={100}
                     unoptimized
                     sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
                     className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
@@ -685,11 +699,12 @@ export default function TravelNgProjectPage() {
 
               <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
                 <Image
+                  key={viewerImages[viewerImageIndex]}
                   src={viewerImages[viewerImageIndex]}
                   alt="Expanded Travel.ng core experience screen"
                   width={1230}
                   height={712}
-                  quality={100}
+                  loading="eager"
                   unoptimized
                   sizes="100vw"
                   style={

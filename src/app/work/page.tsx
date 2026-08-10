@@ -473,8 +473,7 @@ function MobileProjectCard({ project }: { project: Project }) {
           alt={`${project.title} project preview`}
           fill
           sizes="353px"
-          quality={100}
-          unoptimized
+          quality={75}
           className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
         />
         <span
@@ -869,8 +868,7 @@ function TabletProjectCard({ project }: { project: Project }) {
           src={project.imagePath}
           alt={`${project.title} project preview`}
           fill
-          quality={100}
-          unoptimized
+          quality={75}
           sizes="(max-width: 1024px) 43vw, 406px"
           className={`transition-transform duration-500 ease-out group-hover:scale-[1.025] ${
             project.imageFit === "contain" ? "object-contain" : "object-cover"

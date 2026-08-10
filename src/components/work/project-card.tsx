@@ -125,8 +125,7 @@ export function ProjectCard({
           alt={`${title} project preview`}
           fill
           sizes="406px"
-          quality={100}
-          unoptimized
+          quality={75}
           className={imageClassName}
         />
 

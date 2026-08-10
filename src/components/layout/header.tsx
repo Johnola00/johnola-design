@@ -132,16 +132,6 @@ export function Header({ activePath }: HeaderProps) {
     };
   }, []);
 
-  useEffect(() => {
-    if (!isMenuMounted) return;
-
-    const frame = requestAnimationFrame(() => {
-      closeMenu();
-    });
-
-    return () => cancelAnimationFrame(frame);
-  }, [pathname, isMenuMounted, closeMenu]);
-
   const updatePill = useCallback((targetPath: string) => {
     const nav = navRef.current;
     const index = navigation.findIndex((item) => item.href === targetPath);

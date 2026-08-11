@@ -220,12 +220,13 @@ export function Header({ activePath }: HeaderProps) {
               style={{ gap: 12, paddingTop: 24, paddingBottom: 24 }}
             >
               <Image
-                src="/brand/john-oduntan-logo.svg"
+                src="/brand/john-oduntan-logo-hd.png"
                 alt=""
-                width={40}
-                height={37}
+                width={250}
+                height={225}
                 priority
-                style={{ width: 40, height: 37, objectFit: "contain", flexShrink: 0 }}
+                unoptimized
+                style={{ width: 40, height: 36, objectFit: "contain", flexShrink: 0 }}
               />
 
               <span className="flex min-w-0 flex-col justify-center">
@@ -308,13 +309,14 @@ export function Header({ activePath }: HeaderProps) {
                   className="flex min-w-0 items-center gap-3"
                 >
                   <Image
-                    src="/brand/john-oduntan-logo.svg"
+                    src="/brand/john-oduntan-logo-hd.png"
                     alt=""
-                    width={40}
-                    height={37}
+                    width={250}
+                    height={225}
                     priority
+                    unoptimized
                     className="shrink-0 object-contain"
-                    style={{ width: 40, height: 37 }}
+                    style={{ width: 40, height: 36 }}
                   />
 
                   <span className="flex min-w-0 flex-col justify-center">
@@ -415,12 +417,13 @@ export function Header({ activePath }: HeaderProps) {
         className="flex shrink-0 flex-row items-center gap-4"
       >
         <Image
-          src="/brand/john-oduntan-logo.svg"
+          src="/brand/john-oduntan-logo-hd.png"
           alt=""
-          width={48}
-          height={48}
+          width={250}
+          height={225}
           priority
-          className="h-[48px] w-[48px] rounded"
+          unoptimized
+          className="h-[43px] w-[48px] object-contain"
         />
 
         <span className="flex min-w-0 flex-col justify-center">

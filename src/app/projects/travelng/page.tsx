@@ -82,15 +82,23 @@ function ExpandableCoreCopy({
         className="mt-[10px] hidden items-center gap-1.5 text-left font-inter text-[12px] font-medium leading-none text-[#38BDF8] transition-colors duration-200 hover:text-white max-md:inline-flex"
       >
         <span>{isExpanded ? "Show Less" : "See More"}</span>
-        <span
+        <svg
           aria-hidden="true"
-          className="inline-block text-[13px] transition-transform duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          viewBox="0 0 12 12"
+          className="h-3 w-3 transition-transform duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          fill="none"
           style={{
             transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
           }}
         >
-          â†“
-        </span>
+          <path
+            d="M2.5 4.25L6 7.75L9.5 4.25"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </button>
     </div>
   );
@@ -369,13 +377,13 @@ export default function TravelNgProjectPage() {
               </div>
             </div>
             <div className="mt-[56px] w-full">
-              <div className="rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
+              <div className="overflow-hidden rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
                 <button
                   type="button"
                   onClick={() => openViewer(coreExperienceImages, activeCoreImage)}
                   onTouchStart={handleTouchStart}
                   onTouchEnd={handleTouchEnd}
-                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none"
+                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:rounded-none"
                   aria-label="Open Core Experience 01 image viewer"
                 >
                   <Image
@@ -453,11 +461,11 @@ export default function TravelNgProjectPage() {
             </div>
 
             <div className="mt-[56px] w-full">
-              <div className="rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
+              <div className="overflow-hidden rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
                 <button
                   type="button"
                   onClick={() => openViewer(coreExperienceTwoImages, 0)}
-                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none"
+                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:rounded-none"
                   aria-label="Open Core Experience 02 image viewer"
                 >
                   <Image
@@ -488,11 +496,11 @@ export default function TravelNgProjectPage() {
               </div>
             </div>
             <div className="mt-[56px] w-full">
-              <div className="rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
+              <div className="overflow-hidden rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
                 <button
                   type="button"
                   onClick={() => openViewer(coreExperienceThreeImages, 0)}
-                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none"
+                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:rounded-none"
                   aria-label="Open Core Experience 03 image viewer"
                 >
                   <Image
@@ -747,6 +755,7 @@ export default function TravelNgProjectPage() {
     </>
   );
 }
+
 
 
 

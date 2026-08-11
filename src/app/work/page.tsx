@@ -34,7 +34,7 @@ type Project = {
 };
 
 const tabs: Array<{ name: TabName; count?: number }> = [
-  { name: "Mobile projects", count: 7 },
+  { name: "Mobile projects", count: 8 },
   { name: "Web projects", count: 5 },
   { name: "Landing Page Designs", count: 1 },
   { name: "Applied AI & Workflows" },
@@ -139,7 +139,14 @@ const projectSets: Record<TabName, Project[]> = {
         "A social discovery app combining local event discovery, profile matching, and chat to help people connect around events they plan to attend.",
       imagePath: "/projects/mobile-projects/minglo/mingloThumbnail.png",
     },
-  ],
+    {
+      title: "Villascape",
+      year: "2025",
+      tag: "Real Estate",
+      description:
+        "A clean real-estate interface concept for browsing listings, scanning property details, and booking inspections quickly.",
+      imagePath: "/projects/mobile-projects/villascape/VSThumbnail.png",
+    },  ],
   "Web projects": [
     {
       title: "Hedgewears",
@@ -1389,6 +1396,7 @@ export default function WorkPage() {
     </Suspense>
   );
 }
+
 
 
 

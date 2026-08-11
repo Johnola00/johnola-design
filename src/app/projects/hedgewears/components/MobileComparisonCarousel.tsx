@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type TouchEvent } from "react";
@@ -140,7 +140,7 @@ export function MobileComparisonCarousel({
     >
       <header className="flex min-h-[58px] items-center justify-between gap-4 border-b border-white/10 px-5 py-4">
         <span className="font-inter text-[12px] font-semibold uppercase leading-none tracking-[0.14em] text-white/50">
-          Comparison {String(activeIndex + 1).padStart(2, "0")}
+          Design Improvement {String(activeIndex + 1).padStart(2, "0")}
         </span>
 
         <div className="flex shrink-0 items-center gap-[14px]">
@@ -148,7 +148,7 @@ export function MobileComparisonCarousel({
             type="button"
             onClick={goPrevious}
             disabled={!canGoPrevious || isTransitioning}
-            aria-label="Previous comparison"
+            aria-label="Previous design improvement"
             className={`flex h-6 w-6 items-center justify-center transition-opacity duration-200 ${
               canGoPrevious && !isTransitioning
                 ? "cursor-pointer opacity-100"
@@ -168,7 +168,7 @@ export function MobileComparisonCarousel({
             type="button"
             onClick={goNext}
             disabled={!canGoNext || isTransitioning}
-            aria-label="Next comparison"
+            aria-label="Next design improvement"
             className={`flex h-6 w-6 items-center justify-center transition-opacity duration-200 ${
               canGoNext && !isTransitioning
                 ? "cursor-pointer opacity-100"

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -146,7 +146,8 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A clean real-estate interface concept for browsing listings, scanning property details, and booking inspections quickly.",
       imagePath: "/projects/mobile-projects/villascape/VSThumbnail.png",
-    },  ],
+    },
+  ],
   "Web projects": [
     {
       title: "Hedgewears",
@@ -480,8 +481,8 @@ function MobileProjectCard({ project }: { project: Project }) {
           alt={`${project.title} project preview`}
           fill
           sizes="353px"
-          quality={75}
-          unoptimized={project.imagePath.endsWith(".webp")}
+          quality={100}
+          unoptimized
           className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
         />
         <span
@@ -727,7 +728,7 @@ function MobileProjectDestination({
         className="mx-auto flex w-full max-w-[640px] flex-col bg-[#191919]"
         style={{ padding: "24px 20px 56px" }}
       >
-        <Link
+        <a
           href={backHref}
           className="flex w-fit items-center text-[#AAAAAA] transition-colors duration-300 hover:text-white"
           style={{ fontSize: 14, fontWeight: 500, lineHeight: "17px" }}
@@ -741,7 +742,7 @@ function MobileProjectDestination({
             style={{ width: 16, height: 16, marginRight: 8 }}
           />
           <span>{backLabel}</span>
-        </Link>
+        </a>
 
         <div style={{ marginTop: 16 }}>
           <MobileCategorySummaryCard tabName={tabName} />
@@ -876,8 +877,8 @@ function TabletProjectCard({ project }: { project: Project }) {
           src={project.imagePath}
           alt={`${project.title} project preview`}
           fill
-          quality={75}
-          unoptimized={project.imagePath.endsWith(".webp")}
+          quality={100}
+          unoptimized
           sizes="(max-width: 1024px) 43vw, 406px"
           className={`transition-transform duration-500 ease-out group-hover:scale-[1.025] ${
             project.imageFit === "contain" ? "object-contain" : "object-cover"
@@ -1396,8 +1397,6 @@ export default function WorkPage() {
     </Suspense>
   );
 }
-
-
 
 
 

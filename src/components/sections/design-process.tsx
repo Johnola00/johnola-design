@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+import { useViewportMode } from "@/hooks/use-viewport-mode";
 
 const processSteps = [
   {
@@ -30,42 +31,6 @@ const processSteps = [
       "Converting approved designs into fully functional, production-ready frontend code.",
   },
 ];
-
-function isMobileViewport() {
-  if (typeof window === "undefined") return false;
-
-  const widths = [
-    window.innerWidth,
-    document.documentElement.clientWidth,
-    window.visualViewport?.width,
-  ].filter((width): width is number => Boolean(width && width > 0));
-  const viewportWidth = widths.length > 0 ? Math.min(...widths) : 1200;
-  const mobileLike =
-    window.matchMedia("(max-width: 700px)").matches ||
-    window.matchMedia("(pointer: coarse)").matches ||
-    /Android|iPhone|iPad|iPod|Mobile/i.test(window.navigator.userAgent);
-
-  return viewportWidth <= 700 || (mobileLike && viewportWidth <= 1100);
-}
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const update = () => setIsMobile(isMobileViewport());
-    update();
-
-    window.addEventListener("resize", update);
-    window.visualViewport?.addEventListener("resize", update);
-
-    return () => {
-      window.removeEventListener("resize", update);
-      window.visualViewport?.removeEventListener("resize", update);
-    };
-  }, []);
-
-  return isMobile;
-}
 
 function MobileDesignProcess() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -98,7 +63,12 @@ function MobileDesignProcess() {
     <section
       aria-labelledby="design-process-title"
       className="mx-auto mt-[100px] flex w-full flex-col items-center"
-      style={{ width: "100%", maxWidth: 393, paddingLeft: 20, paddingRight: 20, boxSizing: "border-box" }}
+      style={{
+        width: "100%",
+        paddingLeft: 20,
+        paddingRight: 20,
+        boxSizing: "border-box",
+      }}
     >
       <h2 id="design-process-title" className="sr-only">
         My Design Process
@@ -174,6 +144,268 @@ function MobileDesignProcess() {
   );
 }
 
+function TabletDesignProcess() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const activeStep = processSteps[activeIndex];
+
+  function showPreviousStep() {
+    setActiveIndex((index) =>
+      index === 0 ? processSteps.length - 1 : index - 1,
+    );
+  }
+
+  function showNextStep() {
+    setActiveIndex((index) => (index + 1) % processSteps.length);
+  }
+
+  function handleTouchEnd(clientX: number) {
+    if (touchStartX === null) return;
+
+    const delta = clientX - touchStartX;
+    if (Math.abs(delta) > 44) {
+      if (delta > 0) showPreviousStep();
+      else showNextStep();
+    }
+
+    setTouchStartX(null);
+  }
+
+  return (
+    <section
+      aria-labelledby="design-process-title"
+      className="mx-auto mt-20 w-full max-w-[1024px] px-8"
+    >
+      <h2 id="design-process-title" className="sr-only">
+        My Design Process
+      </h2>
+
+      <div className="mx-auto w-full max-w-[864px] overflow-hidden">
+        <div className="flex h-[156px] items-center bg-[#7780F4] px-10">
+          <Image
+            src="/icons/Myprocess.svg"
+            alt="My Design Process"
+            width={360}
+            height={110}
+            priority
+            className="h-auto w-[360px] max-w-[62%] object-contain"
+          />
+        </div>
+
+        <div
+          className="border-2 border-white bg-[#4C39B6] px-10 py-8"
+          onTouchStart={(event) =>
+            setTouchStartX(event.touches[0]?.clientX ?? null)
+          }
+          onTouchEnd={(event) =>
+            handleTouchEnd(event.changedTouches[0]?.clientX ?? 0)
+          }
+        >
+          <div className="flex items-start justify-between gap-8">
+            <div key={activeStep.title} className="max-w-[610px]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
+                Step {String(activeIndex + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mt-3 text-[25px] font-bold leading-none text-white">
+                {activeStep.title}
+              </h3>
+              <p className="mt-3 text-[17px] font-semibold leading-[1.35] text-white/72">
+                {activeStep.description}
+              </p>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-3">
+              <button
+                type="button"
+                aria-label="Previous design process step"
+                onClick={showPreviousStep}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 transition-colors duration-300 hover:bg-white/15"
+              >
+                <Image
+                  src="/icons/viewer-arrow-left.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                />
+              </button>
+              <button
+                type="button"
+                aria-label="Next design process step"
+                onClick={showNextStep}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 transition-colors duration-300 hover:bg-white/15"
+              >
+                <Image
+                  src="/icons/viewer-arrow-right.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                />
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-7 flex items-center gap-2" aria-label="Design process slides">
+            {processSteps.map((step, index) => (
+              <button
+                key={step.title}
+                type="button"
+                aria-label={`Show ${step.title}`}
+                aria-current={activeIndex === index ? "step" : undefined}
+                onClick={() => setActiveIndex(index)}
+                className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
+                  activeIndex === index ? "bg-white" : "bg-white/35"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function useWideShortViewport() {
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      const mediaQuery = window.matchMedia(
+        "(min-width: 900px) and (max-height: 700px)",
+      );
+
+      mediaQuery.addEventListener("change", onStoreChange);
+      return () => mediaQuery.removeEventListener("change", onStoreChange);
+    },
+    () =>
+      window.matchMedia("(min-width: 900px) and (max-height: 700px)").matches,
+    () => false,
+  );
+}
+
+function WideShortDesignProcess() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const activeStep = processSteps[activeIndex];
+
+  function showPreviousStep() {
+    setActiveIndex((index) =>
+      index === 0 ? processSteps.length - 1 : index - 1,
+    );
+  }
+
+  function showNextStep() {
+    setActiveIndex((index) => (index + 1) % processSteps.length);
+  }
+
+  function handleTouchEnd(clientX: number) {
+    if (touchStartX === null) return;
+
+    const delta = clientX - touchStartX;
+    if (Math.abs(delta) > 36) {
+      if (delta > 0) showPreviousStep();
+      else showNextStep();
+    }
+
+    setTouchStartX(null);
+  }
+
+  return (
+    <section
+      aria-labelledby="design-process-title"
+      className="mx-auto mt-[100px] w-full max-w-[1440px] px-[80px]"
+    >
+      <h2 id="design-process-title" className="sr-only">
+        My Design Process
+      </h2>
+
+      <div className="mx-auto flex w-full max-w-[1262px] flex-col gap-0 overflow-hidden">
+        <Image
+          src="/brand/Johncouch.png"
+          alt="John Oduntan working on a laptop while seated on a couch"
+          width={1262}
+          height={375}
+          sizes="(max-width: 1262px) 100vw, 1262px"
+          className="block aspect-[1262/375] h-auto w-full object-cover"
+          priority
+        />
+
+        <div
+          className="w-full bg-[#4C39B6] px-8 py-7"
+          onTouchStart={(event) =>
+            setTouchStartX(event.touches[0]?.clientX ?? null)
+          }
+          onTouchEnd={(event) =>
+            handleTouchEnd(event.changedTouches[0]?.clientX ?? 0)
+          }
+        >
+          <div className="flex min-h-[170px] items-start justify-between gap-8 border-2 border-white px-8 py-7">
+            <div key={activeStep.title} className="max-w-[650px]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
+                Step {String(activeIndex + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mt-3 text-[23px] leading-none font-bold text-white">
+                {activeStep.title}
+              </h3>
+              <p className="mt-3 text-[17px] leading-[1.35] font-semibold text-white/70">
+                {activeStep.description}
+              </p>
+
+              <div
+                className="mt-6 flex items-center gap-2"
+                aria-label="Design process slides"
+              >
+                {processSteps.map((step, index) => (
+                  <button
+                    key={step.title}
+                    type="button"
+                    aria-label={`Show ${step.title}`}
+                    aria-current={activeIndex === index ? "step" : undefined}
+                    onClick={() => setActiveIndex(index)}
+                    className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
+                      activeIndex === index ? "bg-white" : "bg-white/35"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-3">
+              <button
+                type="button"
+                aria-label="Previous design process step"
+                onClick={showPreviousStep}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 transition-colors duration-300 hover:bg-white/15"
+              >
+                <Image
+                  src="/icons/viewer-arrow-left.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                />
+              </button>
+              <button
+                type="button"
+                aria-label="Next design process step"
+                onClick={showNextStep}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/5 transition-colors duration-300 hover:bg-white/15"
+              >
+                <Image
+                  src="/icons/viewer-arrow-right.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function DesktopDesignProcess() {
   return (
     <section
@@ -223,7 +455,11 @@ function DesktopDesignProcess() {
 }
 
 export function DesignProcess() {
-  const isMobile = useIsMobile();
+  const viewportMode = useViewportMode();
+  const isWideShortViewport = useWideShortViewport();
 
-  return isMobile ? <MobileDesignProcess /> : <DesktopDesignProcess />;
+  if (isWideShortViewport) return <WideShortDesignProcess />;
+  if (viewportMode === "mobile") return <MobileDesignProcess />;
+  if (viewportMode === "tablet") return <TabletDesignProcess />;
+  return <DesktopDesignProcess />;
 }

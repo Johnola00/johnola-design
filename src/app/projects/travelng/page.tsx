@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, type TouchEvent } from "react";
 import { createPortal } from "react-dom";
@@ -383,7 +383,7 @@ export default function TravelNgProjectPage() {
                   onClick={() => openViewer(coreExperienceImages, activeCoreImage)}
                   onTouchStart={handleTouchStart}
                   onTouchEnd={handleTouchEnd}
-                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:rounded-none"
+                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:!rounded-none"
                   aria-label="Open Core Experience 01 image viewer"
                 >
                   <Image
@@ -394,8 +394,8 @@ export default function TravelNgProjectPage() {
                     height={712}
                     quality={100}
                     unoptimized
-                    sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
-                    className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                    sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
+                    className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
                   />
                   <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
                     {activeCoreImage + 1}/{coreExperienceImages.length}
@@ -465,7 +465,7 @@ export default function TravelNgProjectPage() {
                 <button
                   type="button"
                   onClick={() => openViewer(coreExperienceTwoImages, 0)}
-                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:rounded-none"
+                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:!rounded-none"
                   aria-label="Open Core Experience 02 image viewer"
                 >
                   <Image
@@ -475,8 +475,8 @@ export default function TravelNgProjectPage() {
                     height={712}
                     quality={100}
                     unoptimized
-                    sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
-                    className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                    sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
+                    className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
                   />
                 </button>
 
@@ -500,7 +500,7 @@ export default function TravelNgProjectPage() {
                 <button
                   type="button"
                   onClick={() => openViewer(coreExperienceThreeImages, 0)}
-                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:rounded-none"
+                  className="group relative block w-full overflow-hidden rounded-[20px] bg-[#DDF0F7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:!rounded-none"
                   aria-label="Open Core Experience 03 image viewer"
                 >
                   <Image
@@ -510,8 +510,8 @@ export default function TravelNgProjectPage() {
                     height={712}
                     quality={100}
                     unoptimized
-                    sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
-                    className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                    sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
+                    className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
                   />
                 </button>
 
@@ -755,6 +755,7 @@ export default function TravelNgProjectPage() {
     </>
   );
 }
+
 
 
 

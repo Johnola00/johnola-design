@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, type TouchEvent } from "react";
 import { createPortal } from "react-dom";
@@ -509,7 +509,7 @@ export default function HedgewearsProjectPage() {
           </section>
 
           <section className="mt-[36px] w-full">
-            <div className="rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
+            <div className="overflow-hidden rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
               <button
                 type="button"
                 onClick={() =>
@@ -521,7 +521,7 @@ export default function HedgewearsProjectPage() {
                 }
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleProductDiscoveryTouchEnd}
-                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#FFF4EE] text-left outline-none"
+                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#FFF4EE] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:!rounded-none"
                 aria-label="Open Product Discovery and Shopping image viewer"
               >
                 <Image
@@ -532,8 +532,8 @@ export default function HedgewearsProjectPage() {
                   height={712}
                   quality={100}
                   unoptimized
-                  sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
-                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                  sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
+                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -652,7 +652,7 @@ export default function HedgewearsProjectPage() {
 
 
           <section className="mt-[48px] w-full">
-            <div className="rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
+            <div className="overflow-hidden rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
               <button
                 type="button"
                 onClick={() =>
@@ -664,7 +664,7 @@ export default function HedgewearsProjectPage() {
                 }
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleMobileProductDiscoveryTouchEnd}
-                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#B7B7B7] text-left outline-none"
+                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#B7B7B7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:!rounded-none"
                 aria-label="Open Simplifying Mobile Product Discovery image viewer"
               >
                 <Image
@@ -675,8 +675,8 @@ export default function HedgewearsProjectPage() {
                   height={712}
                   quality={100}
                   unoptimized
-                  sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
-                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                  sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
+                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -818,7 +818,7 @@ export default function HedgewearsProjectPage() {
 
 
           <section className="mt-[48px] w-full">
-            <div className="rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
+            <div className="overflow-hidden rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
               <button
                 type="button"
                 onClick={() =>
@@ -830,7 +830,7 @@ export default function HedgewearsProjectPage() {
                 }
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handlePurchaseJourneyTouchEnd}
-                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#B7B7B7] text-left outline-none"
+                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#B7B7B7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:!rounded-none"
                 aria-label="Open Simplifying the Purchase Journey image viewer"
               >
                 <Image
@@ -840,8 +840,8 @@ export default function HedgewearsProjectPage() {
                   width={1600}
                   height={900}
                   unoptimized
-                  sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
-                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                  sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
+                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -945,7 +945,7 @@ export default function HedgewearsProjectPage() {
           </section>
 
           <section className="mt-[48px] w-full">
-            <div className="rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
+            <div className="overflow-hidden rounded-[24px] bg-[#262626] p-[24px] max-md:p-4">
               <button
                 type="button"
                 onClick={() =>
@@ -957,7 +957,7 @@ export default function HedgewearsProjectPage() {
                 }
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleAccountManagementTouchEnd}
-                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#B7B7B7] text-left outline-none"
+                className="group relative block w-full overflow-hidden rounded-[20px] bg-[#B7B7B7] text-left outline-none max-md:-mx-4 max-md:-mt-4 max-md:w-[calc(100%+32px)] max-md:!rounded-none"
                 aria-label="Open Better Account Management image viewer"
               >
                 <Image
@@ -967,8 +967,8 @@ export default function HedgewearsProjectPage() {
                   width={1600}
                   height={900}
                   unoptimized
-                  sizes="(max-width: 767px) calc(100vw - 72px), 1230px"
-                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                  sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
+                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -1150,3 +1150,4 @@ export default function HedgewearsProjectPage() {
     </main>
   );
 }
+

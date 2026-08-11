@@ -28,7 +28,7 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "John Oduntan — Product Designer & AI Builder",
+  title: "John Oduntan \u2014 Product Designer \u00B7 Design Engineer",
   description:
     "Product designer creating clear, usable web and mobile products and experimenting with AI to turn ideas into working digital products.",
   authors: [{ name: "John Oduntan" }],
@@ -40,19 +40,19 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "John Oduntan",
-    title: "John Oduntan — Product Designer & AI Builder",
+    title: "John Oduntan \u2014 Product Designer \u00B7 Design Engineer",
     description:
       "Product designer creating clear, usable web and mobile products and experimenting with AI to turn ideas into working digital products.",
     images: [
       {
         url: "/brand/Johnola.jpg",
-        alt: "John Oduntan — Product Designer & AI Builder",
+        alt: "John Oduntan \u2014 Product Designer \u00B7 Design Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "John Oduntan — Product Designer & AI Builder",
+    title: "John Oduntan \u2014 Product Designer \u00B7 Design Engineer",
     description:
       "Product designer creating clear, usable web and mobile products and experimenting with AI to turn ideas into working digital products.",
     images: ["/brand/Johnola.jpg"],

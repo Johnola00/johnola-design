@@ -203,14 +203,31 @@ function TabletHero() {
   return (
     <section className="mx-auto w-full max-w-[1024px] px-8 pb-16 pt-12">
       <div className="mx-auto w-full max-w-[864px]">
-        <Image
-          src="/brand/Johnola.jpg"
-          alt="Portrait of John Oduntan"
-          width={72}
-          height={72}
-          priority
-          className="h-[72px] w-[72px] rounded-[10px] object-cover"
-        />
+        <div className="flex flex-row items-center gap-4">
+          <Image
+            src="/brand/Johnola.jpg"
+            alt="Portrait of John Oduntan"
+            width={72}
+            height={72}
+            priority
+            className="h-[72px] w-[72px] shrink-0 rounded-[10px] object-cover"
+          />
+
+          <div className="flex min-w-0 flex-col">
+            <p className="text-[17px] leading-none font-medium text-white">
+              John Oduntan
+            </p>
+            <p className="mt-[6px] whitespace-nowrap text-[12px] leading-none font-medium text-[#B9B9B9]">
+              Product Designer · Design Engineer
+            </p>
+            <p className="mt-[6px] whitespace-nowrap text-[11px] leading-none font-normal text-[#ABABAB]">
+              Designer by profession. Builder by curiosity
+            </p>
+            <p className="mt-[7px] text-[10px] leading-none font-normal text-[#B9B9B9]">
+              Lagos, Nigeria
+            </p>
+          </div>
+        </div>
 
         <h1 className="mt-7 max-w-[700px] text-[32px] font-semibold leading-[1.18] tracking-[-0.02em] text-white">
           I help startups and businesses design clear, usable web and mobile
@@ -219,7 +236,7 @@ function TabletHero() {
         </h1>
 
         <p className="mt-4 max-w-[560px] text-[14px] font-normal leading-[1.55] text-white/60">
-          Designer & AI Builder focused on turning complex
+          Product Designer and Design Engineer focused on turning complex
           product problems into clear, usable experiences.
         </p>
 
@@ -251,7 +268,7 @@ export function Hero() {
                 John Oduntan
               </h1>
               <p className="text-white/90" style={{ marginTop: 8, fontSize: 12, fontWeight: 400, lineHeight: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                Designer & AI Builder
+                Product Designer · Design Engineer
               </p>
               <p className="text-[#AAAAAA]" style={{ marginTop: 12, fontSize: 10, fontStyle: "italic", lineHeight: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 Designer by profession. Builder by curiosity
@@ -297,7 +314,7 @@ export function Hero() {
                 John Oduntan
               </h1>
               <p className="mt-[7px] text-[15px] leading-none font-medium text-[#B9B9B9]">
-                Designer & AI Builder
+                Product Designer · Design Engineer
               </p>
               <p className="mt-[7px] text-[14px] leading-none font-normal text-[#ABABAB]">
                 Designer by profession. Builder by curiosity

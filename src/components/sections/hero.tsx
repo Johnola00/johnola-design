@@ -201,7 +201,7 @@ function HeroButtons({ mobile = false }: { mobile?: boolean }) {
 
 function TabletHero() {
   return (
-    <section className="mx-auto w-full max-w-[1024px] px-8 pb-16 pt-12">
+    <section className="mx-auto w-full max-w-[1024px] px-12 pb-16 pt-12">
       <div className="mx-auto w-full max-w-[864px]">
         <div className="flex flex-row items-center gap-4">
           <Image
@@ -232,7 +232,7 @@ function TabletHero() {
         <h1 className="mt-7 max-w-[700px] text-[32px] font-semibold leading-[1.18] tracking-[-0.02em] text-white">
           I help startups and businesses design clear, usable web and mobile
           products, and use AI to turn early ideas from concept to working
-          digital products.
+          digital products
         </h1>
 
         <p className="mt-4 max-w-[560px] text-[14px] font-normal leading-[1.55] text-white/60">
@@ -282,7 +282,7 @@ export function Hero() {
           <h2 className="text-white" style={{ marginTop: 40, width: "100%", maxWidth: 520, fontSize: 20, fontWeight: 600, lineHeight: "24px" }}>
             I help startups and businesses design clear, usable web and mobile
             products, and use AI to turn early ideas from concept to working
-            digital products.
+            digital products
           </h2>
 
           <HeroButtons mobile />

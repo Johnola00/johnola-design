@@ -237,9 +237,9 @@ export function Header({ activePath }: HeaderProps) {
                 </span>
                 <span
                   className="truncate text-[#AAAAAA]"
-                  style={{ marginTop: 8, fontSize: 11.5, fontWeight: 500, lineHeight: 1 }}
+                  style={{ marginTop: 8, fontSize: 11.5, fontWeight: 500, lineHeight: 1.25 }}
                 >
-                  Product Designer &middot; Design Engineer
+                  {"Product Designer \u00B7 Design Engineer"}
                 </span>
               </span>
             </Link>
@@ -330,10 +330,10 @@ export function Header({ activePath }: HeaderProps) {
                         marginTop: 7,
                         fontSize: 11.5,
                         fontWeight: 500,
-                        lineHeight: 1,
+                        lineHeight: 1.25,
                       }}
                     >
-                      Product Designer &middot; Design Engineer
+                      {"Product Designer \u00B7 Design Engineer"}
                     </span>
                   </span>
                 </Link>
@@ -427,8 +427,8 @@ export function Header({ activePath }: HeaderProps) {
           <span className="whitespace-nowrap text-[15px] font-medium text-white">
             John Oduntan
           </span>
-          <span className="whitespace-nowrap text-[13px] font-normal text-[#B9B9B9]">
-            Product Designer &middot; Design Engineer
+          <span className="whitespace-nowrap text-[13px] font-normal leading-[1.3] text-[#B9B9B9]">
+            {"Product Designer \u00B7 Design Engineer"}
           </span>
         </span>
       </Link>
@@ -512,7 +512,6 @@ export function Header({ activePath }: HeaderProps) {
     </>
   );
 }
-
 
 
 

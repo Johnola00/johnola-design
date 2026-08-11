@@ -34,7 +34,7 @@ function resetTilt(event: MouseEvent<HTMLElement>) {
   event.currentTarget.style.setProperty("--tilt-y", "0deg");
 }
 
-function MailIcon({ size = 24 }: { size?: number }) {
+function CalendlyIcon({ size = 24 }: { size?: number }) {
   return (
     <svg
       aria-hidden="true"
@@ -44,21 +44,23 @@ function MailIcon({ size = 24 }: { size?: number }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect
-        x="3.5"
-        y="5"
-        width="17"
-        height="14"
-        rx="2.5"
-        stroke="currentColor"
-        strokeWidth="1.7"
-      />
       <path
-        d="M5 7L12 12.2L19 7"
+        d="M16.8 7.55A6 6 0 1 0 16.8 16.45"
         stroke="currentColor"
         strokeWidth="1.7"
         strokeLinecap="round"
-        strokeLinejoin="round"
+      />
+      <path
+        d="M18.75 5.45A8.5 8.5 0 1 0 18.75 18.55"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16.8 9.3H19.3M16.8 14.7H19.3"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -112,7 +114,7 @@ function MobileAboutMe() {
 
       <h3 className="mt-[12px] text-[20px] leading-[24px] font-semibold text-white">
         I’m curious by nature. I like figuring things out, building things,
-        and seeing how far an idea can go.
+        and seeing how far an idea can go
       </h3>
 
       <div className="mt-[16px] flex flex-col gap-[16px] text-[11px] leading-[16px] font-normal text-white/80">
@@ -123,14 +125,14 @@ function MobileAboutMe() {
 
       <div className="mt-[36px] flex flex-row items-center gap-[10px]">
         <a
-          href="mailto:Johnola21091@gmail.com"
+          href="#contact"
           onMouseMove={handleTilt}
           onMouseEnter={resetTilt}
           onMouseLeave={resetTilt}
           style={{ ...tiltButtonStyle, width: 111, height: 40 }}
           className="flex items-center justify-center gap-[6px] rounded-[8px] bg-[#38BDF8] text-[11px] leading-none font-semibold text-white transition-[opacity,transform] duration-300 ease-out [transform:perspective(1000px)_rotateX(var(--tilt-x))_rotateY(var(--tilt-y))_scale(var(--tw-scale-x,1),var(--tw-scale-y,1))] hover:opacity-90 active:scale-95"
         >
-          <MailIcon size={18} />
+          <CalendlyIcon size={18} />
           Meet John
         </a>
 
@@ -155,7 +157,7 @@ function TabletAboutMe() {
     <section
       id="about"
       aria-labelledby="about-me-title"
-      className="mx-auto mt-24 w-full max-w-[1024px] px-8"
+      className="mx-auto mt-24 w-full max-w-[1024px] px-12"
     >
       <div className="mx-auto w-full max-w-[864px]">
         <div className="flex flex-col items-start gap-3">
@@ -176,7 +178,7 @@ function TabletAboutMe() {
 
         <h3 className="mt-8 max-w-[800px] text-[30px] font-semibold leading-[1.24] tracking-[-0.02em] text-white">
           I’m curious by nature. I like figuring things out, building things,
-          and seeing how far an idea can go.
+          and seeing how far an idea can go
         </h3>
 
         <div className="mt-5 max-w-[820px] space-y-5 text-[14px] font-normal leading-[1.72] text-white/70">
@@ -187,14 +189,14 @@ function TabletAboutMe() {
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <a
-            href="mailto:Johnola21091@gmail.com"
+            href="#contact"
             onMouseMove={handleTilt}
             onMouseEnter={resetTilt}
             onMouseLeave={resetTilt}
             style={tiltButtonStyle}
             className="flex h-[46px] w-[128px] items-center justify-center gap-2 rounded-[8px] bg-[#38BDF8] text-[12px] font-semibold leading-none text-white transition-[opacity,transform] duration-300 ease-out [transform:perspective(1000px)_rotateX(var(--tilt-x))_rotateY(var(--tilt-y))_scale(var(--tw-scale-x,1),var(--tw-scale-y,1))] hover:opacity-90 active:scale-95"
           >
-            <MailIcon size={20} />
+            <CalendlyIcon size={20} />
             Meet John
           </a>
 
@@ -246,7 +248,7 @@ function DesktopAboutMe() {
           <div>
             <h3 className="text-[26px] leading-[33.6px] font-semibold text-white">
               I’m curious by nature. I like figuring things out, building
-              things, and seeing how far an idea can go.
+              things, and seeing how far an idea can go
             </h3>
 
             <div className="mt-[16px] flex flex-col gap-4 text-[13px] leading-[24px] font-normal text-white/70">
@@ -258,14 +260,14 @@ function DesktopAboutMe() {
 
           <div className="mt-[36px] flex flex-row items-center gap-4">
             <a
-              href="mailto:Johnola21091@gmail.com"
+              href="#contact"
               onMouseMove={handleTilt}
               onMouseEnter={resetTilt}
               onMouseLeave={resetTilt}
               style={tiltButtonStyle}
               className="flex h-[48px] w-[133px] items-center justify-center gap-[8px] rounded-[8px] bg-[#38BDF8] text-[13px] leading-none font-semibold text-white transition-[opacity,transform] duration-300 ease-out [transform:perspective(1000px)_rotateX(var(--tilt-x))_rotateY(var(--tilt-y))_scale(var(--tw-scale-x,1),var(--tw-scale-y,1))] hover:opacity-90 active:scale-95"
             >
-              <MailIcon />
+              <CalendlyIcon />
               Meet John
             </a>
 

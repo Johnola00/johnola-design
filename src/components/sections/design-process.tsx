@@ -174,7 +174,7 @@ function TabletDesignProcess() {
   return (
     <section
       aria-labelledby="design-process-title"
-      className="mx-auto mt-20 w-full max-w-[1024px] px-8"
+      className="mx-auto mt-20 w-full max-w-[1024px] px-12"
     >
       <h2 id="design-process-title" className="sr-only">
         My Design Process

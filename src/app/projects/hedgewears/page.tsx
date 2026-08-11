@@ -210,24 +210,6 @@ function BulletColumn({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-function preloadBrowserImage(src: string) {
-  if (typeof window === "undefined") return;
-  const image = new window.Image();
-  image.decoding = "async";
-  image.src = src;
-}
-
-function preloadAdjacentImages(images: string[], index: number) {
-  if (images.length <= 1) return;
-
-  const previousIndex = index === 0 ? images.length - 1 : index - 1;
-  const nextIndex = index === images.length - 1 ? 0 : index + 1;
-
-  preloadBrowserImage(images[previousIndex]);
-  if (nextIndex !== previousIndex) {
-    preloadBrowserImage(images[nextIndex]);
-  }
-}
 export default function HedgewearsProjectPage() {
   const [activeProductDiscoveryImage, setActiveProductDiscoveryImage] = useState(0);
   const [activeMobileProductDiscoveryImage, setActiveMobileProductDiscoveryImage] = useState(0);
@@ -239,27 +221,40 @@ export default function HedgewearsProjectPage() {
   const [viewerAlt, setViewerAlt] = useState(
     "Expanded Hedgewears product discovery and shopping screen",
   );
+  const [viewerExpanded, setViewerExpanded] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
-  useEffect(() => {
-    preloadAdjacentImages(productDiscoveryImages, activeProductDiscoveryImage);
-  }, [activeProductDiscoveryImage]);
 
   useEffect(() => {
-    preloadAdjacentImages(mobileProductDiscoveryImages, activeMobileProductDiscoveryImage);
-  }, [activeMobileProductDiscoveryImage]);
+    const timer = window.setTimeout(() => {
+      [
+        productDiscoveryImages[(activeProductDiscoveryImage + 1) % productDiscoveryImages.length],
+        mobileProductDiscoveryImages[(activeMobileProductDiscoveryImage + 1) % mobileProductDiscoveryImages.length],
+        purchaseJourneyImages[(activePurchaseJourneyImage + 1) % purchaseJourneyImages.length],
+        accountManagementImages[(activeAccountManagementImage + 1) % accountManagementImages.length],
+      ].forEach((src) => {
+        const image = new window.Image();
+        image.decoding = "async";
+        image.src = src;
+      });
+    }, 650);
 
-  useEffect(() => {
-    preloadAdjacentImages(purchaseJourneyImages, activePurchaseJourneyImage);
-  }, [activePurchaseJourneyImage]);
-
-  useEffect(() => {
-    preloadAdjacentImages(accountManagementImages, activeAccountManagementImage);
-  }, [activeAccountManagementImage]);
+    return () => window.clearTimeout(timer);
+  }, [
+    activeProductDiscoveryImage,
+    activeMobileProductDiscoveryImage,
+    activePurchaseJourneyImage,
+    activeAccountManagementImage,
+  ]);
 
   useEffect(() => {
     if (!viewerOpen) return;
-    preloadAdjacentImages(viewerImages, viewerImageIndex);
-  }, [viewerOpen, viewerImages, viewerImageIndex]);
+
+    viewerImages.forEach((src) => {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = src;
+    });
+  }, [viewerOpen, viewerImages]);
 
   const showPreviousProductDiscoveryImage = () => {
     setActiveProductDiscoveryImage((current) =>
@@ -317,6 +312,7 @@ export default function HedgewearsProjectPage() {
     setViewerImageIndex(index);
     setViewerImages(images);
     setViewerAlt(alt);
+    setViewerExpanded(false);
     setViewerOpen(true);
   };
 
@@ -330,6 +326,15 @@ export default function HedgewearsProjectPage() {
     setViewerImageIndex((current) =>
       current === viewerImages.length - 1 ? 0 : current + 1,
     );
+  };
+
+  const toggleLandscapeViewer = () => {
+    setViewerExpanded((current) => !current);
+  };
+
+  const closeViewer = () => {
+    setViewerExpanded(false);
+    setViewerOpen(false);
   };
 
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
@@ -435,7 +440,6 @@ export default function HedgewearsProjectPage() {
               width={1280}
               height={866}
               priority
-              quality={100}
               unoptimized
               sizes="(max-width: 1024px) calc(100vw - 40px), 1280px"
               className="h-auto w-full object-contain"
@@ -533,7 +537,7 @@ export default function HedgewearsProjectPage() {
                   quality={100}
                   unoptimized
                   sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
-                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
+                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:-mb-[10px]"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -632,7 +636,7 @@ export default function HedgewearsProjectPage() {
               </h2>
               <p className="mt-[13px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <span className="font-semibold text-[#F5F5F5]">
-                  â€¢ Let users shop before asking them to sign in.
+                  • Let users shop before asking them to sign in.
                 </span>{" "}
                 Guest users can browse, save products and build their cart first, with
                 authentication introduced when an account is required.
@@ -676,7 +680,7 @@ export default function HedgewearsProjectPage() {
                   quality={100}
                   unoptimized
                   sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
-                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
+                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:-mb-[10px]"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -779,7 +783,7 @@ export default function HedgewearsProjectPage() {
               <div className="mt-[13px] space-y-[10px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <p>
                   <span className="font-semibold text-[#F5F5F5]">
-                    â€¢ Prioritize products over navigation.
+                    • Prioritize products over navigation.
                   </span>{" "}
                   I reduced the space occupied by category controls so more of the actual catalogue
                   could appear within the initial viewport.
@@ -787,7 +791,7 @@ export default function HedgewearsProjectPage() {
 
                 <p>
                   <span className="font-semibold text-[#F5F5F5]">
-                    â€¢ Keep category browsing in context.
+                    • Keep category browsing in context.
                   </span>{" "}
                   Instead of creating several layers of category screens, I used a clearer category
                   and subcategory structure that lets users refine what they want while continuing to
@@ -796,7 +800,7 @@ export default function HedgewearsProjectPage() {
 
                 <p>
                   <span className="font-semibold text-[#F5F5F5]">
-                    â€¢ Carry video discovery across platforms.
+                    • Carry video discovery across platforms.
                   </span>{" "}
                   Explore and Watch &amp; Shop were brought into mobile navigation so HedgeWears&apos;
                   video-shopping model wasn&apos;t limited to one part of the product.
@@ -841,7 +845,7 @@ export default function HedgewearsProjectPage() {
                   height={900}
                   unoptimized
                   sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
-                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
+                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:-mb-[10px]"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -926,7 +930,7 @@ export default function HedgewearsProjectPage() {
               </h2>
               <p className="mt-[13px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <span className="font-semibold text-[#F5F5F5]">
-                  â€¢ Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
+                  • Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
                 </span>
               </p>
             </div>
@@ -968,7 +972,7 @@ export default function HedgewearsProjectPage() {
                   height={900}
                   unoptimized
                   sizes="(max-width: 767px) calc(100vw - 40px), 1230px"
-                  className="h-auto w-full rounded-none object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:!rounded-none"
+                  className="h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015] max-md:-mb-[10px]"
                 />
 
                 <span className="absolute right-4 top-4 rounded-full bg-white px-3 py-1 font-inter text-[12px] font-semibold leading-none text-black shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -1053,7 +1057,7 @@ export default function HedgewearsProjectPage() {
               </h2>
               <p className="mt-[13px] font-inter text-[13px] font-normal leading-[1.45] text-[#B8B8B8]">
                 <span className="font-semibold text-[#F5F5F5]">
-                  â€¢ Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
+                  • Prioritized clarity and confidence at every stage, helping users make purchase decisions with less friction.
                 </span>
               </p>
             </div>
@@ -1083,7 +1087,7 @@ export default function HedgewearsProjectPage() {
             >
               <button
                 type="button"
-                onClick={() => setViewerOpen(false)}
+                onClick={closeViewer}
                 className="group fixed right-6 top-6 z-[2147483647] flex h-11 w-11 items-center justify-center rounded-full bg-white/15 shadow-[0_0_24px_rgba(0,0,0,0.45)] transition-colors duration-300 hover:bg-white max-md:right-4 max-md:top-4"
                 aria-label="Close image viewer"
               >
@@ -1126,21 +1130,81 @@ export default function HedgewearsProjectPage() {
                 />
               </button>
 
-              <span className="fixed bottom-8 left-1/2 z-[2147483647] -translate-x-1/2 rounded-full bg-white/10 px-4 py-2 font-inter text-[13px] font-semibold text-white">
-                {viewerImageIndex + 1}/{viewerImages.length}
-              </span>
+              {!viewerExpanded ? (
+                <span className="fixed bottom-8 left-1/2 z-[2147483647] -translate-x-1/2 rounded-full bg-white/10 px-4 py-2 font-inter text-[13px] font-semibold text-white">
+                  {viewerImageIndex + 1}/{viewerImages.length}
+                </span>
+              ) : null}
 
-              <Image
-                key={viewerImages[viewerImageIndex]}
-                src={viewerImages[viewerImageIndex]}
-                alt={viewerAlt}
-                width={1230}
-                height={712}
-                quality={100}
-                unoptimized
-                sizes="100vw"
-                className="max-h-[92vh] w-auto max-w-[94vw] rounded-[12px] object-contain"
-              />
+              <button
+                type="button"
+                onClick={toggleLandscapeViewer}
+                aria-label={
+                  viewerExpanded
+                    ? "Exit expanded inspection view"
+                    : "Open expanded inspection view"
+                }
+                aria-pressed={viewerExpanded}
+                className="fixed bottom-[30px] right-5 z-[2147483647] hidden h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[#242424]/95 text-white shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-[background-color,transform] duration-300 hover:bg-[#323232] active:scale-95 max-md:flex"
+              >
+                {viewerExpanded ? (
+                  <svg
+                    aria-hidden="true"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path d="M9 3V9H3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M15 3V9H21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M9 21V15H3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M15 21V15H21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ) : (
+                  <svg
+                    aria-hidden="true"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path d="M9 3H3V9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M15 3H21V9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M9 21H3V15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M15 21H21V15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </button>
+
+              <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+                <Image
+                  key={viewerImages[viewerImageIndex]}
+                  src={viewerImages[viewerImageIndex]}
+                  alt={viewerAlt}
+                  width={1230}
+                  height={712}
+                  loading="eager"
+                  unoptimized
+                  sizes="100vw"
+                  style={
+                    viewerExpanded
+                      ? {
+                          width: "min(80dvh, 170dvw)",
+                          maxWidth: "none",
+                          maxHeight: "none",
+                          height: "auto",
+                          transform: "rotate(90deg)",
+                          transformOrigin: "center",
+                        }
+                      : undefined
+                  }
+                  className={`rounded-[12px] object-contain transition-[width,max-width,max-height,transform] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    viewerExpanded
+                      ? "max-md:shrink-0"
+                      : "max-h-[92vh] w-auto max-w-[94vw]"
+                  }`}
+                />
+              </div>
             </div>,
             document.body,
           )
@@ -1150,4 +1214,3 @@ export default function HedgewearsProjectPage() {
     </main>
   );
 }
-

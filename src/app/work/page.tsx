@@ -34,7 +34,7 @@ type Project = {
 };
 
 const tabs: Array<{ name: TabName; count?: number }> = [
-  { name: "Mobile projects", count: 8 },
+  { name: "Mobile projects", count: 9 },
   { name: "Web projects", count: 5 },
   { name: "Landing Page Designs", count: 1 },
   { name: "Applied AI & Workflows" },
@@ -130,6 +130,14 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A grocery commerce app connecting shoppers with trusted local produce vendors, food bundles, and safety guidance.",
       imagePath: "/projects/mobile-projects/freshpaddy/FreshpaddyThumbnail.png",
+    },
+    {
+      title: "Kidcoder",
+      year: "2025",
+      tag: "EdTech",
+      description:
+        "A playful coding app that introduces kids to programming through gamified lessons, streaks, and progress milestones.",
+      imagePath: "/projects/mobile-projects/kidcoder/KCThumbnail.png",
     },
     {
       title: "Minglo+",

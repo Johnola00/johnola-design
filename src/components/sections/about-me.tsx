@@ -34,7 +34,7 @@ function resetTilt(event: MouseEvent<HTMLElement>) {
   event.currentTarget.style.setProperty("--tilt-y", "0deg");
 }
 
-function CalendlyIcon({ size = 24 }: { size?: number }) {
+function MailIcon({ size = 24 }: { size?: number }) {
   return (
     <svg
       aria-hidden="true"
@@ -44,23 +44,21 @@ function CalendlyIcon({ size = 24 }: { size?: number }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M16.8 7.55A6 6 0 1 0 16.8 16.45"
+      <rect
+        x="3.5"
+        y="5"
+        width="17"
+        height="14"
+        rx="2.5"
         stroke="currentColor"
         strokeWidth="1.7"
-        strokeLinecap="round"
       />
       <path
-        d="M18.75 5.45A8.5 8.5 0 1 0 18.75 18.55"
+        d="M5 7L12 12.2L19 7"
         stroke="currentColor"
         strokeWidth="1.7"
         strokeLinecap="round"
-      />
-      <path
-        d="M16.8 9.3H19.3M16.8 14.7H19.3"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -125,14 +123,14 @@ function MobileAboutMe() {
 
       <div className="mt-[36px] flex flex-row items-center gap-[10px]">
         <a
-          href="#contact"
+          href="mailto:Johnola21091@gmail.com"
           onMouseMove={handleTilt}
           onMouseEnter={resetTilt}
           onMouseLeave={resetTilt}
           style={{ ...tiltButtonStyle, width: 111, height: 40 }}
           className="flex items-center justify-center gap-[6px] rounded-[8px] bg-[#38BDF8] text-[11px] leading-none font-semibold text-white transition-[opacity,transform] duration-300 ease-out [transform:perspective(1000px)_rotateX(var(--tilt-x))_rotateY(var(--tilt-y))_scale(var(--tw-scale-x,1),var(--tw-scale-y,1))] hover:opacity-90 active:scale-95"
         >
-          <CalendlyIcon size={18} />
+          <MailIcon size={18} />
           Meet John
         </a>
 
@@ -189,14 +187,14 @@ function TabletAboutMe() {
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <a
-            href="#contact"
+            href="mailto:Johnola21091@gmail.com"
             onMouseMove={handleTilt}
             onMouseEnter={resetTilt}
             onMouseLeave={resetTilt}
             style={tiltButtonStyle}
             className="flex h-[46px] w-[128px] items-center justify-center gap-2 rounded-[8px] bg-[#38BDF8] text-[12px] font-semibold leading-none text-white transition-[opacity,transform] duration-300 ease-out [transform:perspective(1000px)_rotateX(var(--tilt-x))_rotateY(var(--tilt-y))_scale(var(--tw-scale-x,1),var(--tw-scale-y,1))] hover:opacity-90 active:scale-95"
           >
-            <CalendlyIcon size={20} />
+            <MailIcon size={20} />
             Meet John
           </a>
 
@@ -260,14 +258,14 @@ function DesktopAboutMe() {
 
           <div className="mt-[36px] flex flex-row items-center gap-4">
             <a
-              href="#contact"
+              href="mailto:Johnola21091@gmail.com"
               onMouseMove={handleTilt}
               onMouseEnter={resetTilt}
               onMouseLeave={resetTilt}
               style={tiltButtonStyle}
               className="flex h-[48px] w-[133px] items-center justify-center gap-[8px] rounded-[8px] bg-[#38BDF8] text-[13px] leading-none font-semibold text-white transition-[opacity,transform] duration-300 ease-out [transform:perspective(1000px)_rotateX(var(--tilt-x))_rotateY(var(--tilt-y))_scale(var(--tw-scale-x,1),var(--tw-scale-y,1))] hover:opacity-90 active:scale-95"
             >
-              <CalendlyIcon />
+              <MailIcon />
               Meet John
             </a>
 

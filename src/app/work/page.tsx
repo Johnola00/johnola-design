@@ -114,6 +114,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A video-first retail concept that turns product discovery, sizing, and checkout into a polished mobile shopping flow.",
       imagePath: "/projects/mobile-projects/hype-and-wear/HWThumbnail.png",
+      href: "/projects/hype-wear",
     },
     {
       title: "Findit",

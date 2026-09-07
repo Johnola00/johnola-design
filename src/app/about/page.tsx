@@ -33,6 +33,14 @@ const experiences: Experience[] = [
     image: "avayelogo.png",
   },
   {
+    company: "Hedge Wears",
+    date: "Mar 2026 - Jun 2026 / Remote",
+    title: "Product Designer",
+    type: "(contract)",
+    desc: "At Hedge Wears, I designed and improved key e-commerce experiences across web and mobile, covering product discovery, navigation, checkout, account management, responsive supporting pages, and product QA while collaborating with product and engineering to refine user flows and implementation.",
+    image: "HedgewearsLogo.jfif",
+  },
+  {
     company: "HNG TECH",
     date: "Oct 2025 - Dec 2025 / Remote",
     title: "Lead Product Designer",
@@ -502,7 +510,7 @@ export default function AboutPage() {
   const isMobile = viewportMode === "mobile";
   const isTablet = viewportMode === "tablet";
   const baseExperiences = experiences.slice(0, 3);
-  const extraExperience = experiences[3];
+  const extraExperiences = experiences.slice(3);
   const marqueeItems = [...certifications, ...certifications];
 
   return (
@@ -559,7 +567,7 @@ export default function AboutPage() {
               <div
                 aria-hidden={!isExpanded}
                 style={{
-                  maxHeight: isExpanded ? 230 : 0,
+                  maxHeight: isExpanded ? extraExperiences.length * 232 : 0,
                   opacity: isExpanded ? 1 : 0,
                   overflow: "hidden",
                   transform: isExpanded ? "translateY(0)" : "translateY(-16px)",
@@ -568,7 +576,9 @@ export default function AboutPage() {
                   pointerEvents: isExpanded ? "auto" : "none",
                 }}
               >
-                <ExperienceCard exp={extraExperience} />
+                {extraExperiences.map((exp) => (
+                  <ExperienceCard key={`${exp.company}-${exp.date}`} exp={exp} />
+                ))}
               </div>
 
               <div className="relative mb-12 mt-12 flex h-10 w-full items-center justify-center">

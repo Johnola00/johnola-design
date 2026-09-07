@@ -38,7 +38,7 @@ const experiences: Experience[] = [
     title: "Product Designer",
     type: "(contract)",
     desc: "At Hedge Wears, I designed and improved key e-commerce experiences across web and mobile, covering product discovery, navigation, checkout, account management, responsive supporting pages, and product QA while collaborating with product and engineering to refine user flows and implementation.",
-    image: "HedgewearsLogo.jfif",
+    image: "HedgewearsLogo.png",
   },
   {
     company: "HNG TECH",

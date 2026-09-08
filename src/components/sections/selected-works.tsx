@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, MouseEvent } from "react";
 import { ProjectCard } from "@/components/work/project-card";
+import { FrontendImplementationCard } from "@/components/work/frontend-implementation-card";
 import { WorkInProgress } from "@/components/work/work-in-progress";
 import { useViewportMode } from "@/hooks/use-viewport-mode";
 
@@ -19,6 +20,15 @@ type Project = {
   imagePath: string;
   imageFit?: "cover" | "contain";
   href?: string;
+  frontendStack?: Array<{
+    src: string;
+    label: string;
+  }>;
+  frontendLinks?: {
+    live?: string;
+    code?: string;
+    design?: string;
+  };
 };
 
 type MobileWorkCategory = {
@@ -32,7 +42,7 @@ const tabs: Array<{ name: TabName; count?: number }> = [
   { name: "Web projects", count: 5 },
   { name: "Landing Page Designs", count: 1 },
   { name: "Applied AI & Workflows" },
-  { name: "Front-End Implementations" },
+  { name: "Front-End Implementations", count: 1 },
 ];
 
 const tabUrlValues: Record<TabName, string> = {
@@ -209,7 +219,24 @@ const projectSets: Record<TabName, Project[]> = {
     },
   ],
   "Applied AI & Workflows": [],
-  "Front-End Implementations": [],
+  "Front-End Implementations": [
+    {
+      title: "DreamHouse Real Estate Responsive Landing Page",
+      year: "2026",
+      tag: "Frontend",
+      description:
+        "A responsive real estate landing page built from a Figma design, with interactive sections and layouts adapted across desktop, tablet, and mobile.",
+      imagePath:
+        "/projects/front-end-implementations/dreamhouse-real-estate/DreamHouseThumbnail.png",
+      frontendStack: [
+        { src: "/icons/frontend/react.svg", label: "React" },
+        { src: "/icons/frontend/typescript.svg", label: "TypeScript" },
+        { src: "/icons/frontend/vite.svg", label: "Vite" },
+        { src: "/icons/frontend/css.svg", label: "CSS" },
+      ],
+      frontendLinks: {},
+    },
+  ],
 };
 
 const tiltButtonStyle = {
@@ -304,8 +331,20 @@ function ProjectGrid({
         isVisible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
       }`}
     >
-      {projects.map((project) => (
-        <ProjectCard
+      {projects.map((project) =>
+        project.frontendStack ? (
+          <FrontendImplementationCard
+          key={project.title}
+          title={project.title}
+          year={project.year}
+          description={project.description}
+          imagePath={project.imagePath}
+          imageFit={project.imageFit}
+          stackIcons={project.frontendStack}
+          links={project.frontendLinks}
+        />
+        ) : (
+          <ProjectCard
           key={project.title}
           title={project.title}
           year={project.year}
@@ -315,7 +354,8 @@ function ProjectGrid({
           imageFit={project.imageFit}
           href={project.href}
         />
-      ))}
+        ),
+      )}
     </div>
   );
 }

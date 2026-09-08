@@ -7,6 +7,7 @@ import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { ProjectCard } from "@/components/work/project-card";
+import { FrontendImplementationCard } from "@/components/work/frontend-implementation-card";
 import { WorkInProgress } from "@/components/work/work-in-progress";
 import { useViewportMode } from "@/hooks/use-viewport-mode";
 
@@ -23,6 +24,17 @@ type MobileWorkCategory = {
   iconPath: string;
 };
 
+type FrontendStackIcon = {
+  src: string;
+  label: string;
+};
+
+type FrontendImplementationLinks = {
+  live?: string;
+  code?: string;
+  design?: string;
+};
+
 type Project = {
   title: string;
   year: string;
@@ -31,6 +43,8 @@ type Project = {
   imagePath: string;
   imageFit?: "cover" | "contain";
   href?: string;
+  frontendStack?: FrontendStackIcon[];
+  frontendLinks?: FrontendImplementationLinks;
 };
 
 const tabs: Array<{ name: TabName; count?: number }> = [
@@ -38,7 +52,7 @@ const tabs: Array<{ name: TabName; count?: number }> = [
   { name: "Web projects", count: 5 },
   { name: "Landing Page Designs", count: 1 },
   { name: "Applied AI & Workflows" },
-  { name: "Front-End Implementations" },
+  { name: "Front-End Implementations", count: 1 },
 ];
 
 const categorySlugs: Record<TabName, string> = {
@@ -220,7 +234,24 @@ const projectSets: Record<TabName, Project[]> = {
     },
   ],
   "Applied AI & Workflows": [],
-  "Front-End Implementations": [],
+  "Front-End Implementations": [
+    {
+      title: "DreamHouse Real Estate Responsive Landing Page",
+      year: "2026",
+      tag: "Frontend",
+      description:
+        "A responsive real estate landing page built from a Figma design, with interactive sections and layouts adapted across desktop, tablet, and mobile.",
+      imagePath:
+        "/projects/front-end-implementations/dreamhouse-real-estate/DreamHouseThumbnail.png",
+      frontendStack: [
+        { src: "/icons/frontend/react.svg", label: "React" },
+        { src: "/icons/frontend/typescript.svg", label: "TypeScript" },
+        { src: "/icons/frontend/vite.svg", label: "Vite" },
+        { src: "/icons/frontend/css.svg", label: "CSS" },
+      ],
+      frontendLinks: {},
+    },
+  ],
 };
 
 const desktopProjectsPerPage = 6;
@@ -323,18 +354,31 @@ function ProjectGrid({
           : "translate-y-[10px] opacity-0"
       }`}
     >
-      {projects.map((project) => (
-        <ProjectCard
-          key={project.title}
-          title={project.title}
-          year={project.year}
-          tag={project.tag}
-          description={project.description}
-          imagePath={project.imagePath}
-          imageFit={project.imageFit}
-          href={project.href}
-        />
-      ))}
+      {projects.map((project) =>
+        project.frontendStack ? (
+          <FrontendImplementationCard
+            key={project.title}
+            title={project.title}
+            year={project.year}
+            description={project.description}
+            imagePath={project.imagePath}
+            imageFit={project.imageFit}
+            stackIcons={project.frontendStack}
+            links={project.frontendLinks}
+          />
+        ) : (
+          <ProjectCard
+            key={project.title}
+            title={project.title}
+            year={project.year}
+            tag={project.tag}
+            description={project.description}
+            imagePath={project.imagePath}
+            imageFit={project.imageFit}
+            href={project.href}
+          />
+        ),
+      )}
     </div>
   );
 }
@@ -478,6 +522,75 @@ function MobileCategorySummaryCard({ tabName }: { tabName: TabName }) {
   );
 }
 
+
+function MobileFrontendActions({ project }: { project: Project }) {
+  const actions = [
+    {
+      label: "View Live Demo",
+      href: project.frontendLinks?.live,
+      icon: "/icons/Right%20Arrow.svg",
+      alt: "",
+    },
+    {
+      label: "View Code",
+      href: project.frontendLinks?.code,
+      icon: "/icons/github.svg",
+      alt: "",
+    },
+    {
+      label: "View Design",
+      href: project.frontendLinks?.design,
+      icon: "/icons/figma.svg",
+      alt: "",
+    },
+  ];
+
+  return (
+    <div className="mt-[10px] flex flex-wrap items-center gap-2">
+      {actions.map((action) =>
+        action.href ? (
+          <Link
+            key={action.label}
+            href={action.href}
+            target="_blank"
+            rel="noreferrer"
+            className="group flex h-[22px] w-fit items-center justify-center gap-1 rounded border-[0.5px] border-white px-2 text-[9px] font-normal leading-none text-white transition-colors duration-300 hover:bg-white hover:text-black"
+          >
+            <span>{action.label}</span>
+            <Image
+              src={action.icon}
+              alt={action.alt}
+              width={12}
+              height={12}
+              aria-hidden="true"
+              className="h-3 w-3 shrink-0 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0"
+            />
+          </Link>
+        ) : (
+          <button
+            key={action.label}
+            type="button"
+            disabled
+            aria-label={`${action.label} is not available yet`}
+            title="Link coming soon"
+            className="flex h-[22px] w-fit cursor-not-allowed items-center justify-center gap-1 rounded border-[0.5px] border-white/35 px-2 text-[9px] font-normal leading-none text-white/45"
+          >
+            <span>{action.label}</span>
+            <Image
+              src={action.icon}
+              alt=""
+              width={12}
+              height={12}
+              aria-hidden="true"
+              className="h-3 w-3 shrink-0 object-contain opacity-45"
+            />
+          </button>
+        ),
+      )}
+    </div>
+  );
+}
+
 function MobileProjectCard({ project }: { project: Project }) {
   return (
     <article className="flex w-full flex-col">
@@ -494,12 +607,31 @@ function MobileProjectCard({ project }: { project: Project }) {
           unoptimized
           className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
         />
-        <span
-          className="absolute left-2 top-2 flex items-center justify-center bg-[#38BDF8] font-[family-name:var(--font-pt-sans-caption)] font-bold text-white"
-          style={{ minWidth: project.tag === "E-commerce" ? 78 : 45, width: "fit-content", height: 24, paddingLeft: 8, paddingRight: 8, borderRadius: 6, fontSize: 10, lineHeight: "10px" }}
-        >
-          {project.tag}
-        </span>
+        {project.frontendStack ? (
+          <div
+            className="absolute left-2 top-2 z-10 flex items-center"
+            style={{ gap: 10 }}
+            aria-label="Technology stack"
+          >
+            {project.frontendStack.map((stack) => (
+              <Image
+                key={stack.label}
+                src={stack.src}
+                alt={stack.label}
+                width={16}
+                height={16}
+                className="h-4 w-4 shrink-0 object-contain"
+              />
+            ))}
+          </div>
+        ) : (
+          <span
+            className="absolute left-2 top-2 flex items-center justify-center bg-[#38BDF8] font-[family-name:var(--font-pt-sans-caption)] font-bold text-white"
+            style={{ minWidth: project.tag === "E-commerce" ? 78 : 45, width: "fit-content", height: 24, paddingLeft: 8, paddingRight: 8, borderRadius: 6, fontSize: 10, lineHeight: "10px" }}
+          >
+            {project.tag}
+          </span>
+        )}
       </div>
 
       <div className="flex w-full items-center justify-between" style={{ marginTop: 12 }}>
@@ -518,7 +650,9 @@ function MobileProjectCard({ project }: { project: Project }) {
         {project.description}
       </p>
 
-      {project.href ? (
+      {project.frontendStack ? (
+        <MobileFrontendActions project={project} />
+      ) : project.href ? (
         <Link
           href={project.href}
           target={project.href.startsWith("http") ? "_blank" : undefined}
@@ -876,6 +1010,72 @@ function TabletWorkNavigation() {
   );
 }
 
+
+function TabletFrontendActions({ project }: { project: Project }) {
+  const actions = [
+    {
+      label: "View Live Demo",
+      href: project.frontendLinks?.live,
+      icon: "/icons/Right%20Arrow.svg",
+    },
+    {
+      label: "View Code",
+      href: project.frontendLinks?.code,
+      icon: "/icons/github.svg",
+    },
+    {
+      label: "View Design",
+      href: project.frontendLinks?.design,
+      icon: "/icons/figma.svg",
+    },
+  ];
+
+  return (
+    <div className="mt-3 flex flex-wrap items-center gap-2">
+      {actions.map((action) =>
+        action.href ? (
+          <Link
+            key={action.label}
+            href={action.href}
+            target="_blank"
+            rel="noreferrer"
+            className="group flex h-[25px] w-fit items-center justify-center gap-1.5 rounded border-[0.5px] border-white px-2.5 text-[10px] font-normal leading-none text-white transition-colors duration-300 hover:bg-white hover:text-black"
+          >
+            <span>{action.label}</span>
+            <Image
+              src={action.icon}
+              alt=""
+              width={13}
+              height={13}
+              aria-hidden="true"
+              className="h-[13px] w-[13px] shrink-0 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0"
+            />
+          </Link>
+        ) : (
+          <button
+            key={action.label}
+            type="button"
+            disabled
+            aria-label={`${action.label} is not available yet`}
+            title="Link coming soon"
+            className="flex h-[25px] w-fit cursor-not-allowed items-center justify-center gap-1.5 rounded border-[0.5px] border-white/35 px-2.5 text-[10px] font-normal leading-none text-white/45"
+          >
+            <span>{action.label}</span>
+            <Image
+              src={action.icon}
+              alt=""
+              width={13}
+              height={13}
+              aria-hidden="true"
+              className="h-[13px] w-[13px] shrink-0 object-contain opacity-45"
+            />
+          </button>
+        ),
+      )}
+    </div>
+  );
+}
+
 function TabletProjectCard({ project }: { project: Project }) {
   const isExternalLink = project.href?.startsWith("http");
 
@@ -894,9 +1094,28 @@ function TabletProjectCard({ project }: { project: Project }) {
           }`}
         />
 
-        <span className="absolute left-3 top-3 z-10 flex h-[25px] w-fit min-w-[52px] items-center justify-center rounded-[7px] bg-[#38BDF8] px-2.5 font-[family-name:var(--font-pt-sans-caption)] text-[10px] font-bold leading-none text-white">
-          {project.tag}
-        </span>
+        {project.frontendStack ? (
+          <div
+            className="absolute left-3 top-3 z-10 flex items-center"
+            style={{ gap: 10 }}
+            aria-label="Technology stack"
+          >
+            {project.frontendStack.map((stack) => (
+              <Image
+                key={stack.label}
+                src={stack.src}
+                alt={stack.label}
+                width={16}
+                height={16}
+                className="h-4 w-4 shrink-0 object-contain"
+              />
+            ))}
+          </div>
+        ) : (
+          <span className="absolute left-3 top-3 z-10 flex h-[25px] w-fit min-w-[52px] items-center justify-center rounded-[7px] bg-[#38BDF8] px-2.5 font-[family-name:var(--font-pt-sans-caption)] text-[10px] font-bold leading-none text-white">
+            {project.tag}
+          </span>
+        )}
       </div>
 
       <div className="mt-3 flex w-full items-center justify-between gap-4">
@@ -912,7 +1131,9 @@ function TabletProjectCard({ project }: { project: Project }) {
         {project.description}
       </p>
 
-      {project.href ? (
+      {project.frontendStack ? (
+        <TabletFrontendActions project={project} />
+      ) : project.href ? (
         <Link
           href={project.href}
           target={isExternalLink ? "_blank" : undefined}

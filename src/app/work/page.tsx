@@ -137,6 +137,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A centralized lost-and-found platform for reporting items, organizing community claims, and encouraging trusted returns.",
       imagePath: "/projects/mobile-projects/findit/FinditThumbnail.png",
+      href: "https://www.behance.net/gallery/255526393/FindIt-Lost-Found-Mobile-App",
     },
     {
       title: "Freshpaddy",

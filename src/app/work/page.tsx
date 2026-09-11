@@ -249,7 +249,10 @@ const projectSets: Record<TabName, Project[]> = {
         { src: "/icons/frontend/vite.svg", label: "Vite" },
         { src: "/icons/frontend/css.svg", label: "CSS" },
       ],
-      frontendLinks: {},
+      frontendLinks: {
+        code: "https://github.com/Johnola00/dreamhouse-real-estate",
+        design: "https://www.figma.com/design/FWazaxizfqfk8sVCwndEYs/Real-Estate-Landing-Page--Community-?m=auto&t=qtRQdcdaJm4PGHW5-1",
+      },
     },
   ],
 };

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -38,7 +38,7 @@ type MobileWorkCategory = {
 };
 
 const tabs: Array<{ name: TabName; count?: number }> = [
-  { name: "Mobile projects", count: 8 },
+  { name: "Mobile projects", count: 9 },
   { name: "Web projects", count: 5 },
   { name: "Landing Page Designs", count: 1 },
   { name: "Applied AI & Workflows" },
@@ -141,6 +141,14 @@ const projectSets: Record<TabName, Project[]> = {
       imagePath: "/projects/mobile-projects/freshpaddy/FreshpaddyThumbnail.png",
     },
     {
+      title: "Kidcoder",
+      year: "2025",
+      tag: "EdTech",
+      description:
+        "A playful coding app that introduces kids to programming through gamified lessons, streaks, and progress milestones.",
+      imagePath: "/brand/work%20img.png",
+    },
+    {
       title: "Minglo+",
       year: "2025",
       tag: "Social",
@@ -154,8 +162,9 @@ const projectSets: Record<TabName, Project[]> = {
       tag: "Real Estate",
       description:
         "A clean real-estate interface concept for browsing listings, scanning property details, and booking inspections quickly.",
-      imagePath: "/projects/mobile-projects/villascape/VSThumbnail.png",
-    },  ],
+      imagePath: "/brand/work%20img.png",
+    },
+  ],
   "Web projects": [
     {
       title: "Hedgewears",
@@ -164,7 +173,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A fashion e-commerce platform for discovering, video shopping, and managing modern style online.",
       imagePath:
-        "/projects/web-projects/hedgewears-fashion-ecommerce/Hedgewears-thumbnail-delivery.webp",
+        "/projects/web-projects/hedgewears-fashion-ecommerce/Hedgewears%20thumbnail.png",
       imageFit: "contain",
       href: "/projects/hedgewears",
     },
@@ -175,7 +184,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A travel platform for discovering curated trips, booking complete packages, and listing local experiences across Nigeria.",
       imagePath:
-        "/projects/web-projects/travel-ng/TravelNg-Thumbnail-delivery.webp",
+        "/projects/web-projects/travel-ng/TravelNg%20Thumbnail.png",
       imageFit: "contain",
       href: "/projects/travelng",
     },
@@ -234,7 +243,10 @@ const projectSets: Record<TabName, Project[]> = {
         { src: "/icons/frontend/vite.svg", label: "Vite" },
         { src: "/icons/frontend/css.svg", label: "CSS" },
       ],
-      frontendLinks: {},
+      frontendLinks: {
+        code: "https://github.com/Johnola00/dreamhouse-real-estate",
+        design: "https://www.figma.com/design/FWazaxizfqfk8sVCwndEYs/Real-Estate-Landing-Page--Community-?m=auto&t=qtRQdcdaJm4PGHW5-1",
+      },
     },
   ],
 };
@@ -289,22 +301,14 @@ function ProjectGrid({
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    let revealFrame = 0;
-
-    const resetFrame = requestAnimationFrame(() => {
+    if (isLoading) {
       setIsVisible(false);
+      return;
+    }
 
-      if (!isLoading) {
-        revealFrame = requestAnimationFrame(() => {
-          setIsVisible(true);
-        });
-      }
-    });
-
-    return () => {
-      cancelAnimationFrame(resetFrame);
-      if (revealFrame) cancelAnimationFrame(revealFrame);
-    };
+    setIsVisible(false);
+    const frame = requestAnimationFrame(() => setIsVisible(true));
+    return () => cancelAnimationFrame(frame);
   }, [isLoading, transitionKey]);
 
   const gridClassName =
@@ -717,7 +721,7 @@ function DesktopSelectedWorks() {
           View More
         </Link>
         <a
-          href="https://www.behance.net/johnoduntan1"
+          href="https://www.behance.net/"
           target="_blank"
           rel="noreferrer"
           onMouseMove={handleTilt}
@@ -747,8 +751,6 @@ export function SelectedWorks() {
   if (viewportMode === "tablet") return <TabletWorkSection />;
   return <DesktopSelectedWorks />;
 }
-
-
 
 
 

@@ -123,6 +123,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A video-first retail concept that turns product discovery, sizing, and checkout into a polished mobile shopping flow.",
       imagePath: "/projects/mobile-projects/hype-and-wear/HWThumbnail.png",
+      href: "/projects/hype-wear",
     },
     {
       title: "Findit",
@@ -147,7 +148,7 @@ const projectSets: Record<TabName, Project[]> = {
       tag: "EdTech",
       description:
         "A playful coding app that introduces kids to programming through gamified lessons, streaks, and progress milestones.",
-      imagePath: "/brand/work%20img.png",
+      imagePath: "/projects/mobile-projects/kidcoder/KCThumbnail.png",
     },
     {
       title: "Minglo+",
@@ -163,7 +164,7 @@ const projectSets: Record<TabName, Project[]> = {
       tag: "Real Estate",
       description:
         "A clean real-estate interface concept for browsing listings, scanning property details, and booking inspections quickly.",
-      imagePath: "/brand/work%20img.png",
+      imagePath: "/projects/mobile-projects/villascape/VSThumbnail.png",
     },
   ],
   "Web projects": [
@@ -707,7 +708,7 @@ function DesktopSelectedWorks() {
       </nav>
 
       <ProjectGrid
-        projects={projectSets[activeTab]}
+        projects={projectSets[activeTab].slice(0, 6)}
         isLoading={isGridLoading}
         transitionKey={activeTab}
       />

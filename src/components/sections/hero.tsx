@@ -326,7 +326,7 @@ export function Hero() {
           </div>
 
           <h2 className="mt-[22px] max-w-xl text-[26.4px] leading-[1.32] font-semibold text-white">
-            I help startups and businesses design clear, usable web and mobile products, and use AI to turn early ideas from concept to working digital products
+            I help startups and businesses design clear, usable web and mobile products, using AI to explore ideas, prototype faster, and turn designs into working experiences
           </h2>
 
           <HeroButtons />

@@ -146,6 +146,7 @@ const projectSets: Record<TabName, Project[]> = {
       description:
         "A grocery commerce app connecting shoppers with trusted local produce vendors, food bundles, and safety guidance.",
       imagePath: "/projects/mobile-projects/freshpaddy/FreshpaddyThumbnail.png",
+      href: "https://www.behance.net/gallery/255729029/Freshpaddy-Farm-Fresh-Grocery-Mobile-App",
     },
     {
       title: "Kidcoder",

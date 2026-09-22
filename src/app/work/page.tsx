@@ -97,7 +97,7 @@ const projectSets: Record<TabName, Project[]> = {
     {
       title: "Homelander",
       year: "2025",
-      tag: "Real Estate",
+      tag: "PropTech",
       description:
         "A rental discovery app for finding verified homes, avoiding fake listings, and connecting safely with property reps.",
       imagePath: "/projects/mobile-projects/homelander/Homelander%20Thumbnail.png",
@@ -106,25 +106,25 @@ const projectSets: Record<TabName, Project[]> = {
     {
       title: "Zowe",
       year: "2025",
-      tag: "Events",
+      tag: "EventTech",
       description:
         "An event discovery marketplace for browsing shows, buying tickets, and hiring verified vendors in one mobile flow.",
       imagePath: "/projects/mobile-projects/zowe/ZoweThumbnail.png",
       href: "https://www.behance.net/gallery/232975121/Zowe-Events-Ticketing-and-Vendor-Sourcing-Mobile-App",
     },
     {
-      title: "Loafsy",
+      title: "Villascape",
       year: "2025",
-      tag: "Bakery",
+      tag: "PropTech",
       description:
-        "A bakery app built around fresh-bake alerts, easy ordering, and short tutorials that connect customers to the craft.",
-      imagePath: "/projects/mobile-projects/loafsy/Loafsy%20thumbnail.png",
-      href: "https://www.behance.net/gallery/225094225/Bakery-App-Visual-Design",
+        "A clean real-estate interface concept for browsing listings, scanning property details, and booking inspections quickly.",
+      imagePath: "/projects/mobile-projects/villascape/VSThumbnail.png",
+      href: "https://www.behance.net/gallery/256077417/Real-Estate-Mobile-App-UI",
     },
     {
       title: "Hype & Wear",
       year: "2025",
-      tag: "Video Commerce",
+      tag: "Fashion E-commerce",
       description:
         "A video-first retail concept that turns product discovery, sizing, and checkout into a polished mobile shopping flow.",
       imagePath: "/projects/mobile-projects/hype-and-wear/HWThumbnail.png",
@@ -159,18 +159,19 @@ const projectSets: Record<TabName, Project[]> = {
     {
       title: "Minglo+",
       year: "2025",
-      tag: "Social",
+      tag: "Social Discovery",
       description:
         "A social discovery app combining local event discovery, profile matching, and chat to help people connect around events they plan to attend.",
       imagePath: "/projects/mobile-projects/minglo/mingloThumbnail.png",
     },
     {
-      title: "Villascape",
+      title: "Loafsy",
       year: "2025",
-      tag: "Real Estate",
+      tag: "Food & Bakery",
       description:
-        "A clean real-estate interface concept for browsing listings, scanning property details, and booking inspections quickly.",
-      imagePath: "/projects/mobile-projects/villascape/VSThumbnail.png",
+        "A bakery app built around fresh-bake alerts, easy ordering, and short tutorials that connect customers to the craft.",
+      imagePath: "/projects/mobile-projects/loafsy/Loafsy%20thumbnail.png",
+      href: "https://www.behance.net/gallery/225094225/Bakery-App-Visual-Design",
     },
   ],
   "Web projects": [
